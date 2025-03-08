@@ -28,7 +28,8 @@ class BaseBenchmarker(ABC):
         """
         Verifies the results of the operation performed. This method is called
         after the operation has been performed. If the results are not valid,
-        this method will raise an exception.
+        this method will raise an exception. This will be called with each execution
+        to ensure tested operation is idempotent.
 
         Args:
             results: The results of the operation performed.

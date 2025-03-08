@@ -42,7 +42,7 @@ def get_parsed_args():
 
     return parser.parse_args()
 
-# python main.py -i ../random.json -o quick_sort
+# python main.py -i ../inputs/random.json -o quick_sort
 if __name__ == "__main__":
     args = get_parsed_args()
 

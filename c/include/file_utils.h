@@ -3,11 +3,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "cJSON.h"
 
 typedef struct StringListData {
-    char *list;
+    char **list;
     int size;
 } StringListData;
 

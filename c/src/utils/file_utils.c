@@ -4,7 +4,7 @@ char* reads_file_data(const char *input_file_path) {
     // Reads file data
     FILE *file = fopen(input_file_path, "r");
     if (!file) {
-        perror("Failed to open file");
+        fprintf(stderr, "Failed to open file: '%s'\n", input_file_path);
         exit(EXIT_FAILURE);
     }
 
@@ -16,13 +16,15 @@ char* reads_file_data(const char *input_file_path) {
     // Allocates memory for JSON data, based on calculated file size
     char* file_data = malloc(file_size + 1);
     if (!file_data) {
-        perror("Failed to allocate memory");
+        perror("Failed to allocate memory for file_data");
         fclose(file);
         exit(EXIT_FAILURE);
     }
 
     // Reads file stream into memory-allocated JSON data string
-    fread(file_data, 1, file_size, file);
+    if (fread(file_data, 1, file_size, file) != file_size) {
+        fprintf(stderr, "Failed to read whole file: '%s'\n", input_file_path);
+    }
     file_data[file_size] = '\0'; // Null-terminate the string
     fclose(file);
 
@@ -66,7 +68,7 @@ StringListData extract_str_list_from_json_str(char* json_str) {
     // Allocate memory for the string list based on the number of strings
     char** list_str = malloc(string_count * sizeof(char *));
     if (!list_str) {
-        perror("Failed to allocate memory for string list");
+        fprintf(stderr, "Failed to allocate memory for string list\n");
         free(json_str);
         cJSON_Delete(json_array);
         exit(EXIT_FAILURE);
@@ -78,7 +80,7 @@ StringListData extract_str_list_from_json_str(char* json_str) {
         if (cJSON_IsString(string_item) && (string_item->valuestring != NULL)) {
             list_str[index] = strdup(string_item->valuestring);
             if (!list_str[index]) {
-                perror("Failed to allocate memory for string");
+                fprintf(stderr, "Failed to allocate memory for string in list_str at index %d\n", index);
 
                 // Free previously allocated strings and string size pointer
                 for (int i = 0; i < index; i++) {

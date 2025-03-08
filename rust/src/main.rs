@@ -10,7 +10,7 @@ const LOOP_COUNT: i32 = 1000;
 
 fn looped_operation() -> Result<Duration, Box<dyn std::error::Error>> {
     // Open the file
-    let file = File::open("../random.json")?;
+    let file = File::open("../inputs/random.json")?;
     let reader = BufReader::new(file);
 
     // Deserialize the JSON into a Vec<String>
