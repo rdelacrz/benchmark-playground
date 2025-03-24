@@ -1,6 +1,8 @@
+/**
+ * Contains the implementation of QuickSort.
+ */
 
-
-fn partition<T: Ord>(arr: &mut [T]) -> usize {
+pub fn partition<T: Ord>(arr: &mut [T]) -> usize {
     let len = arr.len();
     let pivot = len - 1;
     let mut store_index = 0;
