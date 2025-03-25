@@ -1,6 +1,7 @@
 #include "quick_sort_benchmarker.h"
 
 #define NANOS 1000000000LL
+#define NANO_PER_MILLI 1000000L
 
 void QuickSortBenchmarker_init(QuickSortBenchmarker *self, const char *input_file_path) {
     self->operation_name = "QuickSort";
@@ -24,17 +25,17 @@ void QuickSortBenchmarker_print_benchmark_analysis(QuickSortBenchmarker *self, i
     for (int i = 0; i < execution_count; i++) {
         total_time += _QuickSortBenchmarker_get_operation_execution_time(self, verify);
     }
-    printf("C's %s execution time (over %d loops): %.4f ms\n", self->operation_name, execution_count, total_time / 1000000);
+    printf("C's %s execution time (over %d loops): %.4f ms\n", self->operation_name, execution_count, total_time / NANO_PER_MILLI);
 }
 
-long long _QuickSortBenchmarker_get_operation_execution_time(QuickSortBenchmarker *self, bool verify) {
+long _QuickSortBenchmarker_get_operation_execution_time(QuickSortBenchmarker *self, bool verify) {
     char **results = malloc(self->list_size * sizeof(char *));
     memcpy(results, self->unsorted_list, self->list_size * sizeof(char *));
     
     struct timespec start, end;
 
     clock_gettime(CLOCK_MONOTONIC_RAW, &start);
-    quick_sort(results, 0, self->list_size - 1);
+    quick_sort(results, self->list_size);
     clock_gettime(CLOCK_MONOTONIC_RAW, &end);
 
     if (verify) {

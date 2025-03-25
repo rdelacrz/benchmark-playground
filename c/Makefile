@@ -1,6 +1,6 @@
 # Compiler and flags
-CC = gcc
-CFLAGS = -Iinclude -O3
+CC = clang
+CFLAGS = -Iinclude -Os -march=native
 
 # Directories
 INCLUDE_DIR = include

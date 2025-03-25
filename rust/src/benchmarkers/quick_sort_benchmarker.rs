@@ -43,10 +43,11 @@ impl BaseBenchmarker<Vec<String>> for QuickSortBenchmarker {
     }
 
     fn get_operation_results(&self) -> OperationResult<Vec<String>> {
-        let mut quick_sort_input = self.unsorted_list.to_owned();
+        let mut unsorted_list_copy = self.unsorted_list.to_owned();
+        let quick_sort_input = unsorted_list_copy.as_mut_slice();
 
         let start_time = Instant::now();
-        let sorted_list = quick_sort(quick_sort_input.as_mut_slice());
+        let sorted_list = quick_sort(quick_sort_input);
         let execution_time = start_time.elapsed();
         
         OperationResult::new(sorted_list.to_vec(), execution_time)

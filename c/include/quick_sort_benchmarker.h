@@ -22,7 +22,7 @@ typedef struct QuickSortBenchmarker {
 void QuickSortBenchmarker_init(QuickSortBenchmarker *self, const char *input_file_path);
 void QuickSortBenchmarker_print_benchmark_analysis(QuickSortBenchmarker *self, int execution_count, bool verify);
 
-long long _QuickSortBenchmarker_get_operation_execution_time(QuickSortBenchmarker *self, bool verify);
+long _QuickSortBenchmarker_get_operation_execution_time(QuickSortBenchmarker *self, bool verify);
 void _QuickSortBenchmarker_verify_operation_results(QuickSortBenchmarker *self, char **results);
 
 #endif
