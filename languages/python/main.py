@@ -29,6 +29,7 @@ def get_parsed_args():
         '-c',
         '--count',
         default=1000,
+        type=int,
         help="The number of times an operation will be executed over the course of being benchmarked."
     )
 
@@ -42,7 +43,7 @@ def get_parsed_args():
 
     return parser.parse_args()
 
-# python main.py -i ../inputs/random.json -o quick_sort
+# python3 main.py -i ../../inputs/random.json -o quick_sort -c 1000 -v
 if __name__ == "__main__":
     args = get_parsed_args()
 

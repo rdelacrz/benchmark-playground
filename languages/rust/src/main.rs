@@ -27,7 +27,7 @@ struct Args {
 }
 
 // cargo build --release
-// ./target/release/rust -o quick_sort -i ../inputs/random.json -c 1000 -v
+// ./target/release/rust -o quick_sort -i ../../inputs/random.json -c 1000 -v
 fn main() -> Result<(), BenchmarkerError> {
     let args = Args::parse();
 
