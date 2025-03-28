@@ -2,10 +2,10 @@ package main
 
 import (
 	"flag"
-	"log"
 	"strings"
 
 	"github.com/benchmark-playground/go/benchmarkers"
+	"github.com/benchmark-playground/go/utils"
 )
 
 type Args struct {
@@ -39,11 +39,11 @@ var validOperations = []string{"quick_sort"}
 // Validates arguments and throws errors if any of them are invalid
 func validateArgs(args Args) {
 	if args.Operation == "" {
-		log.Fatalf("You must specify a valid operation to benchmark: (%s)", strings.Join(validOperations, ", "))
+		utils.Fatalf("You must specify a valid operation to benchmark: (%s)", strings.Join(validOperations, ", "))
 	}
 
 	if args.InputFile == "" {
-		log.Fatal("You must specify a file containing the input data for the benchmarked operation.")
+		utils.Fatal("You must specify a file containing the input data for the benchmarked operation.")
 	}
 }
 
@@ -53,19 +53,12 @@ func main() {
 	args := getArgs()
 	validateArgs(args)
 
-	var benchmarker any
-
+	// Prints benchmaker analysis for a given operation
 	switch args.Operation {
 	case "quick_sort":
-		benchmarker = benchmarkers.NewQuickSortBenchmarker(args.InputFile)
+		benchmarker := benchmarkers.NewQuickSortBenchmarker(args.InputFile)
+		benchmarkers.PrintBenchmarkAnalysis(benchmarker, uint(args.Count), args.Verify)
 	default:
-		log.Fatalf("Error: The operation '%s' is not supported.", args.Operation)
-	}
-
-	switch b := benchmarker.(type) {
-	case benchmarkers.Benchmarker[[]string]:
-		benchmarkers.PrintBenchmarkAnalysis(b, uint(args.Count), args.Verify)
-	default:
-		log.Fatalf("Error: Unsupported benchmarker type.")
+		utils.Fatalf("Error: The operation '%s' is not supported.", args.Operation)
 	}
 }

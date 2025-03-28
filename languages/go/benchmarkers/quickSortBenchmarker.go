@@ -5,13 +5,13 @@ package benchmarkers
 import (
 	"encoding/json"
 	"io"
-	"log"
 	"os"
 	"sort"
 	"strings"
 	"time"
 
 	"github.com/benchmark-playground/go/operations"
+	"github.com/benchmark-playground/go/utils"
 )
 
 // String wrapper that allows strings to be compared against each other for sorting purposes
@@ -73,7 +73,7 @@ func NewQuickSortBenchmarker(inputFile string) *QuickSortBenchmarker {
 	// Reads file
 	file, err := os.Open(inputFile)
 	if err != nil {
-		log.Fatal(err)
+		utils.Fatal(err.Error())
 	}
 	defer file.Close()
 	inputValue, _ := io.ReadAll(file)
@@ -82,7 +82,7 @@ func NewQuickSortBenchmarker(inputFile string) *QuickSortBenchmarker {
 	var unsortedList []string
 	err = json.Unmarshal(inputValue, &unsortedList)
 	if err != nil {
-		log.Fatal(err)
+		utils.Fatal(err.Error())
 	}
 
 	// Creates a valid sorted list to use for verification purposes

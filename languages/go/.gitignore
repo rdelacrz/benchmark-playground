@@ -25,4 +25,5 @@ go.work.sum
 .env
 
 # Custom build location
-build/*
+/build
+/build/*
