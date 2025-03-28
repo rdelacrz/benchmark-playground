@@ -66,10 +66,6 @@ func (b *QuickSortBenchmarker) verifyOperationOutput(output []string) bool {
 	return true
 }
 
-func (b *QuickSortBenchmarker) printBenchmarkAnalysis(executionCount int, verify bool) {
-	PrintBenchmarkAnalysis(b, executionCount, verify)
-}
-
 func NewQuickSortBenchmarker(inputFile string) QuickSortBenchmarker {
 	// Reads file
 	file, err := os.Open(inputFile)
@@ -97,6 +93,6 @@ func NewQuickSortBenchmarker(inputFile string) QuickSortBenchmarker {
 	}
 }
 
-func (b *QuickSortBenchmarker) RunQuickSortBenchmarker(executionCount int, verify bool) {
-	b.printBenchmarkAnalysis(executionCount, verify)
+func (b *QuickSortBenchmarker) PrintQuickSortBenchmarkAnalysis(executionCount int, verify bool) {
+	PrintBenchmarkAnalysis(b, executionCount, verify)
 }

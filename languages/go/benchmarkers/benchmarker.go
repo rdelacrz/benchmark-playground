@@ -18,7 +18,6 @@ type Benchmarker[O any] interface {
 	getOperationName() string
 	getOperationResults() OperationResult[O]
 	verifyOperationOutput(output O) bool
-	printBenchmarkAnalysis(executionCount int, verify bool)
 }
 
 func PrintBenchmarkAnalysis[O any](b Benchmarker[O], executionCount int, verify bool) {

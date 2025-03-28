@@ -8,5 +8,5 @@ import (
 // ./main
 func main() {
 	benchmarker := benchmarkers.NewQuickSortBenchmarker("../../inputs/random.json")
-	benchmarker.RunQuickSortBenchmarker(1000, true)
+	benchmarker.PrintQuickSortBenchmarkAnalysis(1000, true)
 }
