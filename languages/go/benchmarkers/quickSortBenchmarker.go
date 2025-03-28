@@ -1,3 +1,5 @@
+//lint:file-ignore U1000 Code flagged as unused are actually invoked in PrintBenchmarkAnalysis within benchmarker.go
+
 package benchmarkers
 
 import (
@@ -15,11 +17,12 @@ import (
 // String wrapper that allows strings to be compared against each other for sorting purposes
 type ComparableString string
 
+// Implements the Comparable interface's CompareTo function for ComparableString
 func (a ComparableString) CompareTo(b ComparableString) int {
 	return strings.Compare(string(a), string(b))
 }
 
-// Benchmarker logic
+// Encapsulates QuickSort benchmarking logic
 type QuickSortBenchmarker struct {
 	operationName   string
 	unsortedList    []string
@@ -66,7 +69,7 @@ func (b *QuickSortBenchmarker) verifyOperationOutput(output []string) bool {
 	return true
 }
 
-func NewQuickSortBenchmarker(inputFile string) QuickSortBenchmarker {
+func NewQuickSortBenchmarker(inputFile string) *QuickSortBenchmarker {
 	// Reads file
 	file, err := os.Open(inputFile)
 	if err != nil {
@@ -82,17 +85,14 @@ func NewQuickSortBenchmarker(inputFile string) QuickSortBenchmarker {
 		log.Fatal(err)
 	}
 
+	// Creates a valid sorted list to use for verification purposes
 	validSortedList := make([]string, len(unsortedList))
 	copy(validSortedList, unsortedList)
 	sort.Strings(validSortedList)
 
-	return QuickSortBenchmarker{
+	return &QuickSortBenchmarker{
 		operationName:   "QuickSort",
 		unsortedList:    unsortedList,
 		validSortedList: validSortedList,
 	}
-}
-
-func (b *QuickSortBenchmarker) PrintQuickSortBenchmarkAnalysis(executionCount int, verify bool) {
-	PrintBenchmarkAnalysis(b, executionCount, verify)
 }

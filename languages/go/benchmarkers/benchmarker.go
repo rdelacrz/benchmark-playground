@@ -2,6 +2,7 @@ package benchmarkers
 
 import (
 	"fmt"
+	"log"
 	"time"
 
 	"github.com/benchmark-playground/go/utils"
@@ -20,17 +21,17 @@ type Benchmarker[O any] interface {
 	verifyOperationOutput(output O) bool
 }
 
-func PrintBenchmarkAnalysis[O any](b Benchmarker[O], executionCount int, verify bool) {
+func PrintBenchmarkAnalysis[O any](b Benchmarker[O], executionCount uint, verify bool) {
 	total := int64(0)
 
 	for range make([]struct{}, executionCount) {
 		results := b.getOperationResults()
 
 		if verify && !b.verifyOperationOutput(results.output) {
-			panic("QuickSort results are not properly sorted!")
+			log.Fatal("QuickSort results are not properly sorted!")
 		}
 
-		total += b.getOperationResults().executionTime.Nanoseconds()
+		total += results.executionTime.Nanoseconds()
 	}
 
 	totalMilli := utils.RoundToDecimals(float64(total)/float64(nanoPerMilli), 4)
