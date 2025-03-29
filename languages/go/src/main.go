@@ -47,7 +47,7 @@ func validateArgs(args Args) {
 	}
 }
 
-// go build -ldflags="-s -w" -o build/main
+// go build -C src -ldflags="-s -w" -o ../build/main
 // ./build/main -i ../../inputs/random.json -o quick_sort -c 1000 -v
 func main() {
 	args := getArgs()
