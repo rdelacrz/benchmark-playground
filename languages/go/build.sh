@@ -19,8 +19,8 @@ done
 # Run the appropriate cmake command based on the flags
 if [ $release == true ]; then
   echo "Configuring for Release build..."
-  CC=clang cmake -G Ninja -S . -B target/release -D CMAKE_BUILD_TYPE=Release
+  go build -C src -ldflags="-s -w" -o ../target/release/GoBenchmarkRunner
 else
   echo "Configuring for Debug build..."
-  CC=clang cmake -G Ninja -S . -B target/debug -D CMAKE_BUILD_TYPE=Debug
+  go build -C src -gcflags="all=-N -l" -o ../target/debug/GoBenchmarkRunner
 fi

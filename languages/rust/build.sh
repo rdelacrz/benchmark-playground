@@ -19,8 +19,8 @@ done
 # Run the appropriate cmake command based on the flags
 if [ $release == true ]; then
   echo "Configuring for Release build..."
-  CC=clang cmake -G Ninja -S . -B target/release -D CMAKE_BUILD_TYPE=Release
+  cargo build --release
 else
   echo "Configuring for Debug build..."
-  CC=clang cmake -G Ninja -S . -B target/debug -D CMAKE_BUILD_TYPE=Debug
+  cargo build
 fi
