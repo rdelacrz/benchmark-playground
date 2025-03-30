@@ -10,17 +10,43 @@ add_compile_options(-O3)
 # Include header file directories
 include_directories(include)
 
-# Find all source files in the src directory
+
+###############################
+### Main Executable Setup
+###############################
+
 file(GLOB_RECURSE SOURCES "src/*.c")    # Recursively find all .c files in src
+add_executable(${PROJECT_NAME} ${SOURCES})
 
-# Creates the executable
-add_executable(${PROJECT_NAME} ${SOURCES})   # Sets desired executable name
 
-# Needed to reference CMAKE install directories used by cJSON
-include(GNUInstallDirs)
+###############################
+### Unit Testing Setup
+###############################
 
-# Link the cJSON library
+set(TEST_EXECUTABLE ${PROJECT_NAME}_test)
+
+file(GLOB_RECURSE OPERATION_SOURCES "src/operations/*.c")    # Recursively find all .c files in test
+file(GLOB_RECURSE TEST_SOURCES "test/*.c")    # Recursively find all .c files in test
+add_executable(${TEST_EXECUTABLE} ${OPERATION_SOURCES} ${TEST_SOURCES})
+
+
+###############################
+### Library Dependencies
+###############################
+
+# Initial setup
 set(CJSON_LIB cjson)
+include(GNUInstallDirs)     # Needed to reference CMAKE install directories used by other libraries
+
+# For main benchmarker logic
 target_link_directories(${PROJECT_NAME} PRIVATE ${CMAKE_INSTALL_FULL_LIBDIR})
 target_link_libraries(${PROJECT_NAME} ${CJSON_LIB})
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_INSTALL_FULL_INCLUDEDIR}/${CJSON_LIB})
+
+# For unit testing
+set(UNITY_LIB unity)
+target_link_directories(${TEST_EXECUTABLE} PRIVATE ${CMAKE_INSTALL_FULL_LIBDIR})
+target_link_libraries(${TEST_EXECUTABLE} ${CJSON_LIB})
+target_include_directories(${TEST_EXECUTABLE} PRIVATE ${CMAKE_INSTALL_FULL_INCLUDEDIR}/${CJSON_LIB})
+target_link_libraries(${TEST_EXECUTABLE} ${UNITY_LIB})
+target_include_directories(${TEST_EXECUTABLE} PRIVATE ${CMAKE_INSTALL_FULL_INCLUDEDIR}/${UNITY_LIB})

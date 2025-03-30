@@ -1,3 +1,6 @@
 [submodule "languages/c/extern/cJSON"]
 	path = languages/c/extern/cJSON
 	url = https://github.com/DaveGamble/cJSON
+[submodule "languages/c/extern/Unity"]
+	path = languages/c/extern/Unity
+	url = https://github.com/ThrowTheSwitch/Unity
