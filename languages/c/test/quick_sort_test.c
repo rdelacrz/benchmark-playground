@@ -58,11 +58,24 @@ void test_quickSort_multipleEvenElements(void) {
     TEST_ASSERT_EQUAL_STRING_ARRAY(expected_result, actual_result, 10);
 }
 
+void test_quickSort_alreadySorted(void) {
+    // Arrange
+    char *unsorted[] = { "apple", "badger", "chemistry", "crack", "pig", "trait", "trap", "tree", "zinc", "zoo" };
+    char *expected_result[] = { "apple", "badger", "chemistry", "crack", "pig", "trait", "trap", "tree", "zinc", "zoo" };
+
+    // Act
+    char **actual_result = quick_sort(unsorted, 10);
+
+    // Assert
+    TEST_ASSERT_EQUAL_STRING_ARRAY(expected_result, actual_result, 10);
+}
+
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_quickSort_zeroElements);
     RUN_TEST(test_quickSort_singleElement);
     RUN_TEST(test_quickSort_multipleOddElements);
     RUN_TEST(test_quickSort_multipleEvenElements);
+    RUN_TEST(test_quickSort_alreadySorted);
     return UNITY_END();
 }
