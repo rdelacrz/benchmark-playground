@@ -76,8 +76,6 @@ static struct argp_option options[] = {
 // Argp parser
 static struct argp argp = {options, parse_opt, NULL, "Benchmarker: Benchmarks operations by executing them a set number of times."};
 
-// make
-// ./build/bin/main -o quick_sort -i ../../inputs/random.json -c 1000 -v
 int main(int argc, char *argv[]) {
     struct arguments args;
 
