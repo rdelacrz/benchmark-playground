@@ -24,7 +24,6 @@ fi
 for dir in "$LANGUAGES_DIR"/*/; do
   # Check if run.sh exists in the subdirectory
   if [ -f "${dir}run.sh" ]; then
-    echo "Executing ${dir}run.sh with arguments: $ARGS"
     # Change to the directory and execute the run.sh script with the provided arguments
     (cd "$dir" && ./run.sh $ARGS)
   else
