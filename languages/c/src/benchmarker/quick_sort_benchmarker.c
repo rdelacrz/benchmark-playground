@@ -1,55 +1,64 @@
 #include "quick_sort_benchmarker.h"
 
 #define NANOS 1000000000LL
-#define NANO_PER_MILLI 1000000L
 
-void QuickSortBenchmarker_init(QuickSortBenchmarker *self, const char *input_file_path) {
-    self->operation_name = "QuickSort";
+void QuickSortBenchmarker_initializeBenchmarker(Benchmarker* benchmarker) {
+    benchmarker->execute = _QuickSortBenchmarker_execute;
+    benchmarker->clean_up = _QuickSortBenchmarker_clean_up;
+}
 
+void QuickSortBenchmarker_initializeContextData(QuickSortBenchmarkerContextData *data, const char *input_file_path) {
     // Reads raw file data as a string
     char *json_data = reads_file_data(input_file_path);
 
     // Converts JSON data into string array, and sets converted data internally
     StringListData string_list_data = extract_str_list_from_json_str(json_data);
-    self->unsorted_list = string_list_data.list;
-    self->list_size = string_list_data.size;
 
-    // Creates valid sorted list to compare other sorts to it
-    self->valid_sorted_list = malloc(self->list_size * sizeof(char *));
-    memcpy(self->valid_sorted_list, self->unsorted_list, self->list_size * sizeof(char *));
-    qsort(self->valid_sorted_list, self->list_size, sizeof(char *), compare_strings);
+    data->unsorted_list = string_list_data.list;
+    data->list_size = string_list_data.size;
 }
 
-void QuickSortBenchmarker_print_benchmark_analysis(QuickSortBenchmarker *self, int execution_count, bool verify) {
+void QuickSortBenchmarker_initializeContext(BenchmarkerContext* context, Benchmarker* benchmarker, QuickSortBenchmarkerContextData* data, int execution_count) {
+    context->benchmarker = benchmarker;
+    context->operation_name = "QuickSort";
+    context->data = data;
+    context->execution_count = execution_count;
+}
+
+void _QuickSortBenchmarker_execute(void *context) {
+    BenchmarkerContext *quick_sort_context = (BenchmarkerContext *) context;
+
     double total_time = 0.0;
-    for (int i = 0; i < execution_count; i++) {
-        total_time += _QuickSortBenchmarker_get_operation_execution_time(self, verify);
+    for (int i = 0; i < quick_sort_context->execution_count; i++) {
+        total_time += _QuickSortBenchmarker_get_operation_execution_time(quick_sort_context);
     }
-    printf("C's %s execution time (over %d loops): %.4f ms\n", self->operation_name, execution_count, total_time / NANO_PER_MILLI);
+
+    print_benchmark_analysis(quick_sort_context->operation_name, quick_sort_context->execution_count, total_time);
 }
 
-long _QuickSortBenchmarker_get_operation_execution_time(QuickSortBenchmarker *self, bool verify) {
-    char **results = malloc(self->list_size * sizeof(char *));
-    memcpy(results, self->unsorted_list, self->list_size * sizeof(char *));
+void _QuickSortBenchmarker_clean_up(void *context) {
+    BenchmarkerContext *quick_sort_context = (BenchmarkerContext *) context;
+    QuickSortBenchmarkerContextData *data = (QuickSortBenchmarkerContextData*) quick_sort_context->data;
+    for (int i = 0; i < data->list_size; i++) {
+        free(data->unsorted_list[i]);
+    }
+    free(data->unsorted_list);
+}
+
+long _QuickSortBenchmarker_get_operation_execution_time(BenchmarkerContext *context) {
+    QuickSortBenchmarkerContextData *data = (QuickSortBenchmarkerContextData*) context->data;
+
+    char **results = malloc(data->list_size * sizeof(char *));
+    memcpy(results, data->unsorted_list, data->list_size * sizeof(char *));
     
     struct timespec start, end;
 
     clock_gettime(CLOCK_MONOTONIC_RAW, &start);
-    quick_sort(results, self->list_size);
+    quick_sort(results, data->list_size);
     clock_gettime(CLOCK_MONOTONIC_RAW, &end);
 
-    if (verify) {
-        _QuickSortBenchmarker_verify_operation_results(self, results);
-    }
+    // Frees results after performing quick_sort and determining its execution time
+    free(results);
 
     return ((end.tv_sec * NANOS + end.tv_nsec) - (start.tv_sec * NANOS + start.tv_nsec));
-}
-
-void _QuickSortBenchmarker_verify_operation_results(QuickSortBenchmarker *self, char **results) {
-    for (int i = 0; i < self->list_size; i++) {
-        if (strcmp(results[i], self->valid_sorted_list[i]) != 0) {
-            fprintf(stderr, "QuickSort results are not properly sorted: %s != %s\n", results[i], self->valid_sorted_list[i]);
-            exit(EXIT_FAILURE);
-        }
-    }
 }

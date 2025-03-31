@@ -11,7 +11,6 @@ struct arguments {
     char *operation;
     char *input_file;
     int count;
-    bool verify;
 };
 
 // List of operations
@@ -49,9 +48,6 @@ error_t parse_opt(int key, char *arg, struct argp_state *state) {
         case 'c':
             args->count = atoi(arg);
             break;
-        case 'v':
-            args->verify = true;
-            break;
         case ARGP_KEY_END:
             if (args->operation == NULL) {
                 fprintf(stderr, "Operation is required.\n");
@@ -69,7 +65,6 @@ static struct argp_option options[] = {
     {"operation", 'o', "OPERATION", 0, "The operation to be benchmarked."},
     {"input_file", 'i', "FILE", 0, "The path to a file containing the input data."},
     {"count", 'c', "COUNT", 0, "The number of times an operation will be executed."},
-    {"verify", 'v', 0, 0, "Flag to verify the results of the benchmarked operation."},
     { 0 } // End of options
 };
 
@@ -83,16 +78,22 @@ int main(int argc, char *argv[]) {
     args.operation = NULL;
     args.input_file = NULL;
     args.count = EXECUTION_COUNT;
-    args.verify = false;
 
     // Parse command-line arguments
     argp_parse(&argp, argc, argv, 0, 0, &args);
 
+    Benchmarker benchmarker = {};
+    BenchmarkerContext context = {};
+
     if (strcmp(args.operation, "quick_sort") == 0) {
-        QuickSortBenchmarker benchmarker = {};
-        QuickSortBenchmarker_init(&benchmarker, args.input_file);
-        QuickSortBenchmarker_print_benchmark_analysis(&benchmarker, args.count, args.verify);
+        QuickSortBenchmarkerContextData data = {};
+        QuickSortBenchmarker_initializeBenchmarker(&benchmarker);
+        QuickSortBenchmarker_initializeContextData(&data, args.input_file);
+        QuickSortBenchmarker_initializeContext(&context, &benchmarker, &data, args.count);
     }
+
+    execute_benchmarker(&context);
+    clean_up_benchmarker(&context);
 
     return 0;
 }
