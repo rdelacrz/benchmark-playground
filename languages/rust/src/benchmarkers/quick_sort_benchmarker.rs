@@ -16,9 +16,17 @@ pub struct QuickSortBenchmarker {
 }
 
 impl QuickSortBenchmarker {
-    pub fn new(input_file_path: &str) -> Result<Self, BenchmarkerError> {
-        let file_open_result = File::open(input_file_path);
+    pub fn new() -> Self {
+        Self {
+            operation_name: "QuickSort".to_string(),
+            unsorted_list: Vec::new(),
+        }
+    }
+}
 
+impl BaseBenchmarker for QuickSortBenchmarker {
+    fn consume_input_file(&mut self, input_file_path: &str) -> Result<(), BenchmarkerError> {
+        let file_open_result = File::open(input_file_path);
         let input_file = match file_open_result {
             Ok(file) => file,
             Err(e) => return Err(BenchmarkerError::InputFileLoadError(
@@ -30,9 +38,9 @@ impl QuickSortBenchmarker {
 
         let reader: BufReader<File> = BufReader::new(input_file);
 
-        // Deserializes the JSON into a Vec<String>
+        // Deserializes the JSON into a Vec<String> and loads it
         let serde_results = serde_json::from_reader(reader);
-        let unsorted_list = match serde_results {
+        self.unsorted_list = match serde_results {
             Ok(unsorted_list) => unsorted_list,
             Err(e) => return Err(BenchmarkerError::InputFileParsingError(
                 format!("An error occurred while attempting to deserialize the input file '{}': {}",
@@ -41,16 +49,9 @@ impl QuickSortBenchmarker {
             )),
         };
 
-        let benchmarker = Self {
-            operation_name: "QuickSort".to_string(),
-            unsorted_list,
-        };
-        
-        Ok(benchmarker)
+        Ok(())
     }
-}
 
-impl BaseBenchmarker<Vec<String>> for QuickSortBenchmarker {
     fn get_operation_name(&self) -> &str {
         self.operation_name.as_str()
     }

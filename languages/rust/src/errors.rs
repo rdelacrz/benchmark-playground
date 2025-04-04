@@ -11,4 +11,7 @@ pub enum BenchmarkerError {
 
     #[error("Input file for benchmarker could not be parsed: {0}")]
     InputFileParsingError(String),
+    
+    #[error("'{0}' is not a valid operation name. It must be one of the following: {1}")]
+    InvalidOperationName(String, String),
 }

@@ -4,8 +4,7 @@ mod operations;
 
 use clap::Parser;
 
-use crate::benchmarkers::base_benchmarker::BaseBenchmarker;
-use crate::benchmarkers::quick_sort_benchmarker::QuickSortBenchmarker;
+use crate::benchmarkers::get_benchmarker;
 use crate::errors::BenchmarkerError;
 
 #[derive(Parser, Debug)]
@@ -20,22 +19,15 @@ struct Args {
     /// The count of operations to perform (default: 1000)
     #[arg(short, long, default_value_t = 1000)]
     count: u32,
-
-    /// Whether to verify the operation (default: false)
-    #[arg(short, long, default_value_t = false)]
-    verify: bool,
 }
 
 // cargo build --release
-// ./target/release/rust -o quick_sort -i ../../inputs/random.json -c 1000 -v
+// ./target/release/rust -o QuickSort -i ../../inputs/random.json -c 1000 -v
 fn main() -> Result<(), BenchmarkerError> {
     let args = Args::parse();
 
-    let benchmarker = match args.operation.as_str() {
-        "quick_sort" => QuickSortBenchmarker::new(&args.input_file)?,
-        _ => panic!("Invalid operation"),
-    };
-
+    let mut benchmarker = get_benchmarker(&args.operation)?;
+    benchmarker.consume_input_file(&args.input_file)?;
     benchmarker.print_benchmark_analysis(args.count)?;
 
     Ok(())
