@@ -2,38 +2,22 @@
  * Contains base benchmarker trait that will be used by all operation benchmarkers.
  */
  
-use std::time::Duration;
+use std::{ops::Add, time::Duration};
 
 use crate::errors::BenchmarkerError;
-
-pub struct OperationResult<O> {
-    output: O,
-    execution_time: Duration,
-}
-
-impl<O> OperationResult<O> {
-    pub fn new(output: O, execution_time: Duration) -> Self {
-        Self { output, execution_time }
-    }
-}
 
 pub trait BaseBenchmarker<O> {
     fn get_operation_name(&self) -> &str;
 
-    fn get_operation_results(&self) -> OperationResult<O>;
+    fn get_operation_execution_time(&self) -> Duration;
 
-    fn verify_operation_output(&self, output: O) -> Result<(), BenchmarkerError>;
+    fn get_operation_execution_results(&self, execution_count: u32) -> Vec<Duration> {
+        Vec::from_iter((0..execution_count).map(|_| self.get_operation_execution_time()))
+    }
 
-    fn print_benchmark_analysis(&self, execution_count: u32, verify: bool) -> Result<(), BenchmarkerError> {
-        let mut total_elapsed = Duration::from_secs(0);
-
-        for _ in 0..execution_count {
-            let results = self.get_operation_results();
-            total_elapsed += results.execution_time;
-            if verify {
-                self.verify_operation_output(results.output)?;
-            }
-        }
+    fn print_benchmark_analysis(&self, execution_count: u32) -> Result<(), BenchmarkerError> {
+        let execution_results = self.get_operation_execution_results(execution_count);
+        let total_elapsed = execution_results.into_iter().fold(Duration::from_secs(0), |a, b| a.add(b));
 
         // Prints statistics
         let operation_name = self.get_operation_name();

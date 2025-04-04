@@ -19,7 +19,7 @@ done
 # Run the appropriate cmake command based on the flags
 if [ $release == true ]; then
   echo "Configuring for Release build..."
-  cargo build --release
+  RUSTFLAGS="-C target-cpu=native" cargo build --release
 else
   echo "Configuring for Debug build..."
   cargo build

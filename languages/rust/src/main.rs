@@ -32,9 +32,11 @@ fn main() -> Result<(), BenchmarkerError> {
     let args = Args::parse();
 
     let benchmarker = match args.operation.as_str() {
-        "quick_sort" => QuickSortBenchmarker::new(&args.input_file),
+        "quick_sort" => QuickSortBenchmarker::new(&args.input_file)?,
         _ => panic!("Invalid operation"),
     };
 
-    benchmarker.print_benchmark_analysis(args.count, args.verify)
+    benchmarker.print_benchmark_analysis(args.count)?;
+
+    Ok(())
 }
