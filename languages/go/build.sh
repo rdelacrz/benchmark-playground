@@ -19,8 +19,8 @@ done
 # Run the appropriate cmake command based on the flags
 if [ $release == true ]; then
   echo "Configuring for Release build..."
-  go build -C src -ldflags="-s -w" -o ../target/release/GoBenchmarkRunner
+  go build -C src -ldflags="-s -w" -o ../target/release/go_benchmark_runner
 else
   echo "Configuring for Debug build..."
-  go build -C src -gcflags="all=-N -l" -o ../target/debug/GoBenchmarkRunner
+  go build -C src -gcflags="all=-N -l" -o ../target/debug/go_benchmark_runner
 fi

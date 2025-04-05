@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.28)
-project(CBenchmarkRunner)            # Name of project
+project(c_benchmark_runner)            # Name of project
 
 # Set the C standard
 set(CMAKE_C_STANDARD 23)                # https://cmake.org/cmake/help/latest/prop_tgt/C_STANDARD.html
