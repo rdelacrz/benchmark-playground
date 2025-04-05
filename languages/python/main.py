@@ -3,7 +3,7 @@ import argparse
 from benchmarkers.quick_sort_benchmarker import QuickSortBenchmarker
 
 BENCHMARK_MAP = {
-    'quick_sort': QuickSortBenchmarker,
+    'QuickSort': QuickSortBenchmarker,
 }
 
 def get_parsed_args():

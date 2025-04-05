@@ -34,7 +34,7 @@ func getArgs() Args {
 	return args
 }
 
-var validOperations = []string{"quick_sort"}
+var validOperations = []string{"QuickSort"}
 
 // Validates arguments and throws errors if any of them are invalid
 func validateArgs(args Args) {
@@ -48,14 +48,14 @@ func validateArgs(args Args) {
 }
 
 // go build -C src -ldflags="-s -w" -o ../build/main
-// ./build/main -i ../../inputs/random.json -o quick_sort -c 1000 -v
+// ./build/main -i ../../inputs/random.json -o QuickSort -c 1000 -v
 func main() {
 	args := getArgs()
 	validateArgs(args)
 
 	// Prints benchmaker analysis for a given operation
 	switch args.Operation {
-	case "quick_sort":
+	case "QuickSort":
 		benchmarker := benchmarkers.NewQuickSortBenchmarker(args.InputFile)
 		benchmarkers.PrintBenchmarkAnalysis(benchmarker, uint(args.Count), args.Verify)
 	default:

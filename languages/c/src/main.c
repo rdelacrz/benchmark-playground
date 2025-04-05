@@ -15,7 +15,7 @@ struct arguments {
 
 // List of operations
 const char *operations[] = {
-    "quick_sort",
+    "QuickSort",
     NULL // NULL-terminated list
 };
 
@@ -71,6 +71,18 @@ static struct argp_option options[] = {
 // Argp parser
 static struct argp argp = {options, parse_opt, NULL, "Benchmarker: Benchmarks operations by executing them a set number of times."};
 
+/**
+ * Sets up the benchmarking environment based on the given operation name.
+ */
+void setup_benchmarker(Benchmarker *benchmarker, BenchmarkerContext *context, char* operation_name, char* input_file, int count) {
+    if (strcmp(operation_name, "QuickSort") == 0) {
+        QuickSortBenchmarkerContextData data = {};
+        QuickSortBenchmarker_initializeBenchmarker(benchmarker);
+        QuickSortBenchmarker_initializeContextData(&data, input_file);
+        QuickSortBenchmarker_initializeContext(context, benchmarker, &data, count);
+    }
+}
+
 int main(int argc, char *argv[]) {
     struct arguments args;
 
@@ -85,13 +97,7 @@ int main(int argc, char *argv[]) {
     Benchmarker benchmarker = {};
     BenchmarkerContext context = {};
 
-    if (strcmp(args.operation, "quick_sort") == 0) {
-        QuickSortBenchmarkerContextData data = {};
-        QuickSortBenchmarker_initializeBenchmarker(&benchmarker);
-        QuickSortBenchmarker_initializeContextData(&data, args.input_file);
-        QuickSortBenchmarker_initializeContext(&context, &benchmarker, &data, args.count);
-    }
-
+    setup_benchmarker(&benchmarker, &context, args.operation, args.input_file, args.count);
     execute_benchmarker(&context);
     clean_up_benchmarker(&context);
 
