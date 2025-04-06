@@ -2,6 +2,12 @@
 
 const std = @import("std");
 
+fn swap(comptime T: type, i: usize, j: usize, arr: [][]T) void {
+    const temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+}
+
 fn partition(comptime T: type, arr: [][]T) usize {
     const len = arr.len;
     const pivot = len - 1;
@@ -10,16 +16,12 @@ fn partition(comptime T: type, arr: [][]T) usize {
     for (arr[0 .. len - 1], 0..len - 1) |item, i| {
         if (std.mem.lessThan(T, item, arr[pivot])) {
             // Swap arr[i] and arr[store_index]
-            const temp = arr[i];
-            arr[i] = arr[store_index];
-            arr[store_index] = temp;
+            swap(T, i, store_index, arr);
             store_index += 1;
         }
     }
     // Swap arr[store_index] and arr[pivot]
-    const temp = arr[store_index];
-    arr[store_index] = arr[pivot];
-    arr[pivot] = temp;
+    swap(T, pivot, store_index, arr);
 
     return store_index;
 }
