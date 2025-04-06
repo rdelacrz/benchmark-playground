@@ -1,5 +1,6 @@
 pub mod base_benchmarker;
 pub mod quick_sort_benchmarker;
+
 use base_benchmarker::BaseBenchmarker;
 use quick_sort_benchmarker::QuickSortBenchmarker;
 

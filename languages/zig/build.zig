@@ -65,6 +65,9 @@ pub fn build(b: *std.Build) void {
         .root_module = exe_mod,
     });
 
+    // Adds third-party dependencies to the application
+    addThirdPartyDependencies(b, exe);
+
     // This declares intent for the executable to be installed into the
     // standard location when the user invokes the "install" step (the default
     // step when running `zig build`).
@@ -113,4 +116,9 @@ pub fn build(b: *std.Build) void {
     const test_step = b.step("test", "Run unit tests");
     test_step.dependOn(&run_lib_unit_tests.step);
     test_step.dependOn(&run_exe_unit_tests.step);
+}
+
+fn addThirdPartyDependencies(b: *std.Build, exe: *std.Build.Step.Compile) void {
+    const clap = b.dependency("clap", .{});
+    exe.root_module.addImport("clap", clap.module("clap"));
 }

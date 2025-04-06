@@ -21,7 +21,7 @@ func getArgs() Args {
 	var args Args
 	flag.StringVar(&args.Operation, "operation", "", "The operation to be benchmarked")
 	flag.StringVar(&args.Operation, "o", "", "The operation to be benchmarked (short)")
-	flag.StringVar(&args.InputFile, "input_file", "", "The path to a file containing the input data for the benchmarked operation.")
+	flag.StringVar(&args.InputFile, "inputfile", "", "The path to a file containing the input data for the benchmarked operation.")
 	flag.StringVar(&args.InputFile, "i", "", "The path to a file containing the input data for the benchmarked operation. (short)")
 	flag.UintVar(&args.Count, "count", 1000, "The number of times an operation will be executed over the course of being benchmarked (default = 1000).")
 	flag.UintVar(&args.Count, "c", 1000, "The number of times an operation will be executed over the course of being benchmarked (short).")

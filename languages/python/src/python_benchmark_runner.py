@@ -21,7 +21,7 @@ def get_parsed_args():
 
     parser.add_argument(
         '-i',
-        '--input_file',
+        '--inputfile',
         help="The path to a file containing the input data for the benchmarked operation."
     )
 

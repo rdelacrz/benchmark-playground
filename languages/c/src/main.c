@@ -63,7 +63,7 @@ error_t parse_opt(int key, char *arg, struct argp_state *state) {
 // Argp options
 static struct argp_option options[] = {
     {"operation", 'o', "OPERATION", 0, "The operation to be benchmarked."},
-    {"input_file", 'i', "FILE", 0, "The path to a file containing the input data."},
+    {"inputfile", 'i', "FILE", 0, "The path to a file containing the input data."},
     {"count", 'c', "COUNT", 0, "The number of times an operation will be executed."},
     { 0 } // End of options
 };

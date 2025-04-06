@@ -1,9 +1,10 @@
 // Contains file utility functions
 
 const std = @import("std");
+
 pub const StringArray = @import("std").json.Parsed([][]u8);
 
-fn read_file_data(input_file_path: []const u8) ![]const u8 {
+fn readFileData(input_file_path: []const u8) ![]const u8 {
     const allocator = std.heap.page_allocator;
 
     // Open the file
@@ -18,10 +19,10 @@ fn read_file_data(input_file_path: []const u8) ![]const u8 {
     return buffer;
 }
 
-pub fn read_json_string_array_from_file(input_file_path: []const u8) !StringArray {
+pub fn readJsonStringArrayFromFile(input_file_path: []const u8) !StringArray {
     const allocator = std.heap.page_allocator;
 
-    const buffer = try read_file_data(input_file_path);
+    const buffer = try readFileData(input_file_path);
     defer allocator.free(buffer);
 
     return try std.json.parseFromSlice([][]u8, allocator, buffer, .{});

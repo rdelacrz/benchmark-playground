@@ -2,13 +2,13 @@
 
 const std = @import("std");
 
-fn swap(comptime T: type, i: usize, j: usize, arr: [][]T) void {
+inline fn swap(comptime T: type, i: usize, j: usize, arr: [][]T) void {
     const temp = arr[i];
     arr[i] = arr[j];
     arr[j] = temp;
 }
 
-fn partition(comptime T: type, arr: [][]T) usize {
+inline fn partition(comptime T: type, arr: [][]T) usize {
     const len = arr.len;
     const pivot = len - 1;
     var store_index: usize = 0;
@@ -26,11 +26,11 @@ fn partition(comptime T: type, arr: [][]T) usize {
     return store_index;
 }
 
-pub fn quick_sort(comptime T: type, arr: [][]T) [][]T {
+pub fn quickSort(comptime T: type, arr: [][]T) [][]T {
     if (arr.len > 1) {
         const pivot = partition(T, arr);
-        _ = quick_sort(T, arr[0..pivot]);
-        _ = quick_sort(T, arr[pivot + 1 ..]);
+        _ = quickSort(T, arr[0..pivot]);
+        _ = quickSort(T, arr[pivot + 1 ..]);
     }
     return arr;
 }
