@@ -1,11 +1,11 @@
 mod benchmarkers;
-mod errors;
 mod operations;
+mod utils;
 
 use clap::Parser;
 
 use crate::benchmarkers::get_benchmarker;
-use crate::errors::BenchmarkerError;
+use crate::utils::errors::BenchmarkerError;
 
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]

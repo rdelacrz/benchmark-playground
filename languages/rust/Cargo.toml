@@ -17,4 +17,6 @@ name = "rust_benchmark"
 harness = false
 
 [profile.release]
+opt-level = 3
 lto = "fat"
+target-cpu = "native"

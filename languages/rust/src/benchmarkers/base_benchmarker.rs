@@ -4,7 +4,7 @@
  
 use std::{ops::Add, time::Duration};
 
-use crate::errors::BenchmarkerError;
+use crate::utils::errors::BenchmarkerError;
 
 pub trait BaseBenchmarker {
     fn consume_input_file(&mut self, input_file_path: &str) -> Result<(), BenchmarkerError>;
@@ -23,7 +23,8 @@ pub trait BaseBenchmarker {
 
         // Prints statistics
         let operation_name = self.get_operation_name();
-        println!("Rust's {:?} execution time (over {:?} loops): {:?}", operation_name, execution_count, total_elapsed);
+        let milliseconds = total_elapsed.as_nanos() as f64 / 1_000_000 as f64;
+        println!("Rust's {} execution time (over {:?} loops): {:.6} ms", operation_name, execution_count, milliseconds);
 
         Ok(())
     }

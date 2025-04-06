@@ -7,7 +7,7 @@ use std::io::BufReader;
 use std::time::{Duration, Instant};
 
 use crate::benchmarkers::base_benchmarker::BaseBenchmarker;
-use crate::errors::BenchmarkerError;
+use crate::utils::errors::BenchmarkerError;
 use crate::operations::quick_sort::quick_sort;
 
 pub struct QuickSortBenchmarker {

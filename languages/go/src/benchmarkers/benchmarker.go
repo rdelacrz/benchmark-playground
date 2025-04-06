@@ -34,7 +34,7 @@ func PrintBenchmarkAnalysis[O any](b Benchmarker[O], executionCount uint, verify
 		total += results.executionTime.Nanoseconds()
 	}
 
-	totalMilli := utils.RoundToDecimals(float64(total)/float64(nanoPerMilli), 4)
+	totalMilli := utils.RoundToDecimals(float64(total)/float64(nanoPerMilli), 6)
 
-	fmt.Printf("Go's %s execution time (over %d loops): %.4f ms\n", b.getOperationName(), executionCount, totalMilli)
+	fmt.Printf("Go's %s execution time (over %d loops): %.6f ms\n", b.getOperationName(), executionCount, totalMilli)
 }

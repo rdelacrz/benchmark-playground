@@ -75,4 +75,4 @@ class BaseBenchmarker(ABC):
         total_time = sum(self._get_operation_execution_time(verify) for _ in range(execution_count))
 
         # Prints statistics
-        print(f"Python's {self.operation_name} execution time (over {execution_count} loops): {round(total_time * 1000, 4)} ms")
+        print(f"Python's {self.operation_name} execution time (over {execution_count} loops): {round(total_time * 1000, 6)} ms")

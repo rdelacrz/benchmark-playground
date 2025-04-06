@@ -3,7 +3,7 @@ pub mod quick_sort_benchmarker;
 use base_benchmarker::BaseBenchmarker;
 use quick_sort_benchmarker::QuickSortBenchmarker;
 
-use crate::errors::BenchmarkerError;
+use crate::utils::errors::BenchmarkerError;
 
 pub fn get_benchmarker(operation_name: &str) -> Result<Box<dyn BaseBenchmarker>, BenchmarkerError> {
     let benchmarkers: Vec<Box<dyn BaseBenchmarker>> = vec![

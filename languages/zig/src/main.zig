@@ -29,7 +29,7 @@ pub fn main() !void {
         total += @floatFromInt(end_time.since(start_time));
     }
 
-    std.debug.print("Zig's QuickSort execution time (over 1000 loops): {d:.4}\n", .{total / 1000000});
+    std.debug.print("Zig's QuickSort execution time (over 1000 loops): {d:.6} ms\n", .{total / 1000000});
 }
 
 /// This imports the separate module containing `root.zig`. Take a look in `build.zig` for details.
