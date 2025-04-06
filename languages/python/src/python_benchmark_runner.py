@@ -49,8 +49,8 @@ if __name__ == "__main__":
 
     if args.operation not in BENCHMARK_MAP:
         print(f"Error: The operation '{args.operation}' is not supported.")
-    elif not args.input_file:
+    elif not args.inputfile:
         print(f"Error: The operation '{args.operation}' requires an input file.")
     else:
-        benchmarker = BENCHMARK_MAP[args.operation](args.input_file)
+        benchmarker = BENCHMARK_MAP[args.operation](args.inputfile)
         benchmarker.print_benchmark_analysis(args.count, args.verify)
