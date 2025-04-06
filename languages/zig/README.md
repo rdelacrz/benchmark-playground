@@ -6,14 +6,4 @@ The Zig compiler must be installed in order to run **ZigBenchmarkRunner**. Make 
 
 ### Zig Compiler Installation
 
-From the *zig/bootstrap* folder, run the following commands below to install the Zig compiler.
-
-This command (which is defined by the *build* file of the [zig-bootstrap](https://github.com/ziglang/zig-bootstrap) repository) builds Zig.
-```
-CMAKE_GENERATOR=Ninja build native-linux-gnu baseline
-```
-
-Afterwards, run the following to confirm the Zig version:
-```
-./out/zig-x86_64-linux-gnu-baseline/zig version
-```
+Install Zig using [Snapd](https://snapcraft.io/install/zig/ubuntu#install).

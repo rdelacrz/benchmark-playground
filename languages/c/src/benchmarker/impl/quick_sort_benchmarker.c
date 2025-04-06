@@ -9,7 +9,7 @@ void QuickSortBenchmarker_initializeBenchmarker(Benchmarker* benchmarker) {
 
 void QuickSortBenchmarker_initializeContextData(QuickSortBenchmarkerContextData *data, const char *input_file_path) {
     // Reads raw file data as a string
-    char *json_data = reads_file_data(input_file_path);
+    char *json_data = read_file_data(input_file_path);
 
     // Converts JSON data into string array, and sets converted data internally
     StringListData string_list_data = extract_str_list_from_json_str(json_data);

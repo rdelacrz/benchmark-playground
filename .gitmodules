@@ -4,6 +4,3 @@
 [submodule "languages/c/extern/Unity"]
 	path = languages/c/extern/Unity
 	url = https://github.com/ThrowTheSwitch/Unity
-[submodule "languages/zig/bootstrap"]
-	path = languages/zig/bootstrap
-	url = https://github.com/ziglang/zig-bootstrap

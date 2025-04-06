@@ -6,6 +6,7 @@
 #include "benchmarker.h"
 #include "file_utils.h"
 #include "quick_sort.h"
+#include "string_utils.h"
 
 typedef struct QuickSortBenchmarkerContextData {
     char **unsorted_list;
