@@ -23,20 +23,20 @@ pub fn getQuickSortBenchmarker(input_file_path: []const u8) !QuickSortBenchmarke
     };
 }
 
-fn getOperationExecutionTime(self: QuickSortBenchmarker) u64 {
+fn getOperationExecutionTime(self: QuickSortBenchmarker) anyerror!u64 {
     const allocator = std.heap.page_allocator;
 
     // Clones the array of strings
     var cloned_arr = std.ArrayList([]u8).init(allocator);
     defer cloned_arr.deinit();
     for (self.context.parsed_arr.value) |item| {
-        _ = cloned_arr.append(item) catch unreachable;
+        _ = try cloned_arr.append(item);
     }
 
     // Gets the execution time
-    const start_time = std.time.Instant.now() catch unreachable;
+    const start_time = try std.time.Instant.now();
     _ = quickSort(u8, cloned_arr.items);
-    const end_time = std.time.Instant.now() catch unreachable;
+    const end_time = try std.time.Instant.now();
 
     return end_time.since(start_time);
 }

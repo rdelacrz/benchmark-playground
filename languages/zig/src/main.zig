@@ -8,7 +8,7 @@ const eql = @import("std").mem.eql;
 const clap = @import("clap");
 
 const Benchmarker = @import("../benchmarker.zig").Benchmarker;
-const getQuickSortBenchmarker = @import("benchmarkers/impl/quick_sort_benchmarker.zig").getQuickSortBenchmarker;
+const runBenchmarker = @import("benchmarkers/benchmarker_runner.zig").runBenchmarker;
 
 pub fn main() !void {
     var gpa = std.heap.GeneralPurposeAllocator(.{}){};
@@ -52,17 +52,10 @@ pub fn main() !void {
     if (res.args.count) |c|
         count = c;
 
-    const Operation = enum { QuickSort };
-
-    if (std.meta.stringToEnum(Operation, operation)) |o| {
-        const benchmarker = switch (o) {
-            .QuickSort => try getQuickSortBenchmarker(input_file),
-        };
-        benchmarker.printBenchmarkAnalysis(count);
-        benchmarker.cleanUp(benchmarker);
-    } else {
-        std.debug.print("The following operation is invalid: {s}\n", .{operation});
-    }
+    // Runs benchmarker
+    runBenchmarker(operation, input_file, count) catch |err| {
+        std.debug.print("An error occurred while running the benchmarker: {}", .{err});
+    };
 }
 
 /// This imports the separate module containing `root.zig`. Take a look in `build.zig` for details.
