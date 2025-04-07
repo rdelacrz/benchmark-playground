@@ -2,10 +2,8 @@
 //! you are building an executable. If you are making a library, the convention
 //! is to delete this file and start with root.zig instead.
 
-const std = @import("std");
-const eql = @import("std").mem.eql;
-
 const clap = @import("clap");
+const std = @import("std");
 
 const Benchmarker = @import("../benchmarker.zig").Benchmarker;
 const runBenchmarker = @import("benchmarkers/benchmarker_runner.zig").runBenchmarker;
