@@ -2,38 +2,32 @@ package benchmarkers
 
 import (
 	"fmt"
-	"log"
 	"time"
 
-	"github.com/benchmark-playground/go/utils"
+	"github.com/benchmark-playground/languages/go/utils"
+	"github.com/samber/lo"
 )
 
 var nanoPerMilli int64 = 1000000
 
-type OperationResult[O any] struct {
-	output        O
-	executionTime time.Duration
-}
-
-type Benchmarker[O any] interface {
+type Benchmarker interface {
 	getOperationName() string
-	getOperationResults() OperationResult[O]
-	verifyOperationOutput(output O) bool
+	getOperationExecutionTime() time.Duration
 }
 
-func PrintBenchmarkAnalysis[O any](b Benchmarker[O], executionCount uint, verify bool) {
-	total := int64(0)
+func GetOperationExecutionResults(b Benchmarker, executionCount uint) []time.Duration {
+	return lo.Map(make([]struct{}, executionCount), func(_ struct{}, _ int) time.Duration {
+		return b.getOperationExecutionTime()
+	})
+}
 
-	for range make([]struct{}, executionCount) {
-		results := b.getOperationResults()
+func PrintBenchmarkAnalysis(b Benchmarker, executionCount uint) {
+	results := GetOperationExecutionResults(b, executionCount)
+	total := lo.Reduce(results, func(agg int64, item time.Duration, _ int) int64 {
+		return agg + item.Nanoseconds()
+	}, int64(0))
 
-		if verify && !b.verifyOperationOutput(results.output) {
-			log.Fatal("QuickSort results are not properly sorted!")
-		}
-
-		total += results.executionTime.Nanoseconds()
-	}
-
+	// TODO: Print more detailed time information
 	totalMilli := utils.RoundToDecimals(float64(total)/float64(nanoPerMilli), 6)
 
 	fmt.Printf("Go's %s execution time (over %d loops): %.6f ms\n", b.getOperationName(), executionCount, totalMilli)

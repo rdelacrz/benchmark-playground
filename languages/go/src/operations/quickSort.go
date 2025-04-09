@@ -1,7 +1,7 @@
 package operations
 
 import (
-	"github.com/benchmark-playground/go/utils"
+	"github.com/benchmark-playground/languages/go/utils"
 )
 
 func partition[T utils.Comparable[T]](arr []T) int {

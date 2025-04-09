@@ -6,12 +6,12 @@ import (
 	"encoding/json"
 	"io"
 	"os"
-	"sort"
 	"strings"
 	"time"
 
-	"github.com/benchmark-playground/go/operations"
-	"github.com/benchmark-playground/go/utils"
+	"github.com/benchmark-playground/languages/go/operations"
+	"github.com/benchmark-playground/languages/go/utils"
+	"github.com/samber/lo"
 )
 
 // String wrapper that allows strings to be compared against each other for sorting purposes
@@ -24,49 +24,25 @@ func (a ComparableString) CompareTo(b ComparableString) int {
 
 // Encapsulates QuickSort benchmarking logic
 type QuickSortBenchmarker struct {
-	operationName   string
-	unsortedList    []string
-	validSortedList []string
+	operationName string
+	unsortedList  []string
 }
 
 func (b *QuickSortBenchmarker) getOperationName() string {
 	return b.operationName
 }
 
-func (b *QuickSortBenchmarker) getOperationResults() OperationResult[[]string] {
-	listCopy := make([]ComparableString, len(b.unsortedList))
-
-	for i, elem := range b.unsortedList {
-		listCopy[i] = ComparableString(elem)
-	}
+func (b *QuickSortBenchmarker) getOperationExecutionTime() time.Duration {
+	listCopy := lo.Map(b.unsortedList, func(elem string, _ int) ComparableString {
+		return ComparableString(elem)
+	})
 
 	// Gets execution time of QuickSort
 	start := time.Now()
 	operations.QuickSort(listCopy)
 	executionTime := time.Since(start)
 
-	// Converts String[] format back into regular slice of strings
-	output := make([]string, len(listCopy))
-	for i, elem := range listCopy {
-		output[i] = string(elem)
-	}
-
-	return OperationResult[[]string]{
-		output:        output,
-		executionTime: executionTime,
-	}
-}
-
-func (b *QuickSortBenchmarker) verifyOperationOutput(output []string) bool {
-	if len(output) != len(b.validSortedList) {
-		return false
-	}
-	for i := range output {
-		if output[i] != b.validSortedList[i] {
-			return false
-		}
-	}
-	return true
+	return executionTime
 }
 
 func NewQuickSortBenchmarker(inputFile string) *QuickSortBenchmarker {
@@ -85,14 +61,8 @@ func NewQuickSortBenchmarker(inputFile string) *QuickSortBenchmarker {
 		utils.Fatal(err.Error())
 	}
 
-	// Creates a valid sorted list to use for verification purposes
-	validSortedList := make([]string, len(unsortedList))
-	copy(validSortedList, unsortedList)
-	sort.Strings(validSortedList)
-
 	return &QuickSortBenchmarker{
-		operationName:   "QuickSort",
-		unsortedList:    unsortedList,
-		validSortedList: validSortedList,
+		operationName: "QuickSort",
+		unsortedList:  unsortedList,
 	}
 }
