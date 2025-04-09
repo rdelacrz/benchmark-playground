@@ -48,6 +48,10 @@ fn compareStrings(a: []const u8, b: []const u8) std.math.Order {
     return std.mem.order(u8, a, b);
 }
 
+fn compareIntegers(a: i16, b: i16) std.math.Order {
+    return std.math.order(a, b);
+}
+
 fn generateMutableStringArray(static_arr: [][]const u8) !StringList {
     var mutArr = StringList.init(allocator);
     errdefer mutArr.deinit();
@@ -134,4 +138,16 @@ test "QuickSort: same elements" {
 
     // Assert
     try testing.expectEqualSlices([]const u8, expected_results.items, actual_results);
+}
+
+test "QuickSort: test integers" {
+    // Arrange
+    var unsorted = [_]i16{ 4, -54, 40, 400, 2, -7, 0, 1, 4 };
+    const expected_results = [_]i16{ -54, -7, 0, 1, 2, 4, 4, 40, 400 };
+
+    // Act
+    const actual_results: []const i16 = quickSort(i16, unsorted[0..], &compareIntegers);
+
+    // Assert
+    try testing.expectEqualSlices(i16, expected_results[0..], actual_results);
 }
