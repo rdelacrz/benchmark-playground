@@ -34,8 +34,9 @@ fn getOperationExecutionTime(self: QuickSortBenchmarker) anyerror!u64 {
     }
 
     // Gets the execution time
+    const target_sort = cloned_arr.items;
     const start_time = try std.time.Instant.now();
-    _ = quickSort(u8, cloned_arr.items);
+    _ = quickSort([]u8, target_sort, &compareStrings);
     const end_time = try std.time.Instant.now();
 
     return end_time.since(start_time);
@@ -43,4 +44,8 @@ fn getOperationExecutionTime(self: QuickSortBenchmarker) anyerror!u64 {
 
 fn cleanUp(self: QuickSortBenchmarker) void {
     self.context.parsed_arr.deinit();
+}
+
+fn compareStrings(a: []u8, b: []u8) std.math.Order {
+    return std.mem.order(u8, a, b);
 }

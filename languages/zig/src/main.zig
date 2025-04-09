@@ -15,7 +15,7 @@ pub fn main() !void {
     // First we specify what parameters our program can take.
     // We can use `parseParamsComptime` to parse a string into an array of `Param(Help)`.
     const params = comptime clap.parseParamsComptime(
-        \\-h, --help                  Display this help and exits.
+        \\-h, --help                  Display this help and exit.
         \\-o, --operation <str>       The operation to be benchmarked.
         \\-i, --inputfile <str>       The path to a file containing the input data.
         \\-c, --count <usize>         The number of times an operation will be executed.
