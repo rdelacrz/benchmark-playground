@@ -1,6 +1,6 @@
 # python_benchmark_runner
 
-The following subpackage runs benchmarks using code written in **Python**. Assuming that the operating system hosting this application is Ubuntu, [Python](https://www.python.org/downloads/) should already come preinstalled in it. It uses [Setuptools](https://setuptools.pypa.io/en/latest/index.html) to generate executables for the project.
+The following subpackage runs benchmarks using code written in **Python**. Assuming that the operating system hosting this application is Ubuntu, [Python](https://www.python.org/downloads/) should already come preinstalled in it.
 
 ## Prerequisites
 
