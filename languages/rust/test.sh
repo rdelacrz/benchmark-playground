@@ -1,3 +1,4 @@
 #!/bin/bash
 
-cargo test
+cargo build
+cargo test --lib
