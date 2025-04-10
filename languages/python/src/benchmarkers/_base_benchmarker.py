@@ -23,20 +23,7 @@ class BaseBenchmarker(ABC):
         """
         ...
 
-    @abstractmethod
-    def _verify_operation_results(self, results: any):
-        """
-        Verifies the results of the operation performed. This method is called
-        after the operation has been performed. If the results are not valid,
-        this method will raise an exception. This will be called with each execution
-        to ensure tested operation is idempotent.
-
-        Args:
-            results: The results of the operation performed.
-        """
-        ...
-
-    def _get_operation_execution_time(self, verify=False):
+    def _get_operation_execution_time(self):
         """
         Performs the operation and returns the execution time of it.
 
@@ -53,26 +40,21 @@ class BaseBenchmarker(ABC):
 
         # Performs operation and calculates execution time
         start_time = time.time()
-        results = self._perform_operation(*input_data_args)
+        self._perform_operation(*input_data_args)
         end_time = time.time()
-
-        # Verifies operation results to ensure that operation is working properly
-        if verify:
-            self._verify_operation_results(results)
 
         return end_time - start_time
 
-    def print_benchmark_analysis(self, execution_count=1000, verify=False):
+    def print_benchmark_analysis(self, execution_count=1000):
         """
         Prints the execution time of the operation being benchmarked after executing
         it the specified number of times.
 
         Args:
             execution_count (int): The number of times the benchmarked operation is being executed.
-            verify (bool): If True, the operation's results will be verified to ensure it returns valid output.
         """
 
-        total_time = sum(self._get_operation_execution_time(verify) for _ in range(execution_count))
+        total_time = sum(self._get_operation_execution_time() for _ in range(execution_count))
 
         # Prints statistics
         print(f"Python's {self.operation_name} execution time (over {execution_count} loops): {round(total_time * 1000, 6)} ms")

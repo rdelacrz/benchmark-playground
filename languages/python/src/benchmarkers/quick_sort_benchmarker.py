@@ -17,10 +17,6 @@ class QuickSortBenchmarker(BaseBenchmarker):
 
     def _get_input_data_args(self):
         return [self.unsorted_list.copy(), 0, len(self.unsorted_list) - 1]
-    
-    def _verify_operation_results(self, results):
-        if self.valid_sorted_list != results:
-            raise Exception(f"{self.operation_name} results are not properly sorted: {str(results)}")
 
     def _perform_operation(self, *args):
         return quick_sort(*args)

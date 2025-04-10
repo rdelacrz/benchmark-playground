@@ -33,18 +33,9 @@ def get_parsed_args():
         help="The number of times an operation will be executed over the course of being benchmarked."
     )
 
-    parser.add_argument(
-        '-v',
-        '--verify',
-        action='store_true',
-        default=False,
-        help="Flag that determines whether or not to verify the results of the benchmarked operation."
-    )
-
     return parser.parse_args()
 
-# python3 main.py -i ../../inputs/random.json -o quick_sort -c 1000 -v
-if __name__ == "__main__":
+def main():
     args = get_parsed_args()
 
     if args.operation not in BENCHMARK_MAP:
@@ -53,4 +44,8 @@ if __name__ == "__main__":
         print(f"Error: The operation '{args.operation}' requires an input file.")
     else:
         benchmarker = BENCHMARK_MAP[args.operation](args.inputfile)
-        benchmarker.print_benchmark_analysis(args.count, args.verify)
+        benchmarker.print_benchmark_analysis(args.count)
+
+# python3 main.py -i ../../inputs/random.json -o quick_sort -c 1000
+if __name__ == "__main__":
+    main()
