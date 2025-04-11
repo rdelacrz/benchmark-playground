@@ -20,5 +20,5 @@ def partition(arr: list[int], low: int, high: int) -> int:
             arr[i], arr[j] = arr[j], arr[i]
 
     i += 1      
-    arr[i], arr[high] = arr[high], arr[i]
+    arr[i], arr[pivot] = arr[pivot], arr[i]
     return i
