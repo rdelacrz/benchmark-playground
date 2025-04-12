@@ -3,13 +3,13 @@ package org.benchmarkplayground.operations;
 import java.util.List;
 
 public final class QuickSort {
-    public static <T extends Comparable<T>> void swap(List<T> arr, int i, int j) {
+    private static <T extends Comparable<T>> void swap(List<T> arr, int i, int j) {
         T temp = arr.get(i);
         arr.set(i, arr.get(j));
         arr.set(j, temp);
     }
 
-    public static <T extends Comparable<T>> int partition(List<T> arr, int low, int high) {
+    private static <T extends Comparable<T>> int partition(List<T> arr, int low, int high) {
         int pivot = high;   // Last element is pivot
         int i = low - 1;    // Index of smaller element
 
@@ -25,12 +25,16 @@ public final class QuickSort {
         return i;
     }
 
-    public static <T extends Comparable<T>> List<T> quickSort(List<T> arr, int low, int high) {
+    private static <T extends Comparable<T>> List<T> quickSort(List<T> arr, int low, int high) {
         if (low < high) {
             int pivotIndex = partition(arr, low, high);
             quickSort(arr, low, pivotIndex - 1);
             quickSort(arr, pivotIndex + 1, high);
         }
         return arr;
+    }
+
+    public static <T extends Comparable<T>> List<T> quickSort(List<T> arr) {
+        return quickSort(arr, 0, arr.size() - 1);
     }
 }

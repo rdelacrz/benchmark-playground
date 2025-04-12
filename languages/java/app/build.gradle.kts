@@ -9,6 +9,7 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     application
+    id("test-report-aggregation")
 }
 
 repositories {
@@ -43,4 +44,14 @@ java {
 application {
     // Define the main class for the application.
     mainClass = "org.benchmarkplayground.App"
+}
+
+tasks.named<Test>("test") {
+    useJUnitPlatform()
+
+    maxHeapSize = "1G"
+
+    testLogging {
+        events("passed")
+    }
 }

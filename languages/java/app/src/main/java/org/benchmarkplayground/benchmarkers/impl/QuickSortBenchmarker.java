@@ -34,7 +34,7 @@ public class QuickSortBenchmarker extends Benchmarker {
         List<String> arrCopy = new ArrayList<>(unsortedList);
 
         Stopwatch stopwatch = Stopwatch.createStarted();
-        QuickSort.quickSort(arrCopy, 0, arrCopy.size() - 1);
+        QuickSort.quickSort(arrCopy);
         stopwatch.stop();
 
         return stopwatch.elapsed(TimeUnit.NANOSECONDS);
