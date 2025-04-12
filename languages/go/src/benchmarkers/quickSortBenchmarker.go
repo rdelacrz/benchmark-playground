@@ -28,6 +28,25 @@ type QuickSortBenchmarker struct {
 	unsortedList  []string
 }
 
+func (b *QuickSortBenchmarker) consumeInputFile(inputFilePath string) {
+	// Reads file data itself
+	file, err := os.Open(inputFilePath)
+	if err != nil {
+		utils.Fatal(err.Error())
+	}
+	defer file.Close()
+	inputValue, _ := io.ReadAll(file)
+
+	// Unmarshal the JSON data into the slice
+	var unsortedList []string
+	err = json.Unmarshal(inputValue, &unsortedList)
+	if err != nil {
+		utils.Fatal(err.Error())
+	}
+
+	b.unsortedList = unsortedList
+}
+
 func (b *QuickSortBenchmarker) getOperationName() string {
 	return b.operationName
 }
@@ -45,24 +64,8 @@ func (b *QuickSortBenchmarker) getOperationExecutionTime() time.Duration {
 	return executionTime
 }
 
-func NewQuickSortBenchmarker(inputFile string) *QuickSortBenchmarker {
-	// Reads file
-	file, err := os.Open(inputFile)
-	if err != nil {
-		utils.Fatal(err.Error())
-	}
-	defer file.Close()
-	inputValue, _ := io.ReadAll(file)
-
-	// Unmarshal the JSON data into the slice
-	var unsortedList []string
-	err = json.Unmarshal(inputValue, &unsortedList)
-	if err != nil {
-		utils.Fatal(err.Error())
-	}
-
+func GetQuickSortBenchmarker() *QuickSortBenchmarker {
 	return &QuickSortBenchmarker{
 		operationName: "QuickSort",
-		unsortedList:  unsortedList,
 	}
 }

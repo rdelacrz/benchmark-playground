@@ -11,8 +11,13 @@ import (
 var nanoPerMilli int64 = 1000000
 
 type Benchmarker interface {
+	consumeInputFile(string)
 	getOperationName() string
 	getOperationExecutionTime() time.Duration
+}
+
+func ConsumeInputFile(b Benchmarker, inputFilePath string) {
+	b.consumeInputFile(inputFilePath)
 }
 
 func GetOperationExecutionResults(b Benchmarker, executionCount uint) []time.Duration {

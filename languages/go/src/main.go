@@ -31,10 +31,8 @@ func getArgs() Args {
 	return args
 }
 
-var validOperations = []string{"QuickSort"}
-
 // Validates arguments and throws errors if any of them are invalid
-func validateArgs(args Args) {
+func validateArgs(args Args, validOperations []string) {
 	if args.Operation == "" {
 		utils.Fatalf("You must specify a valid operation to benchmark: (%s)", strings.Join(validOperations, ", "))
 	}
@@ -47,15 +45,13 @@ func validateArgs(args Args) {
 // go build -C src -ldflags="-s -w" -o ../build/main
 // ./build/main -i ../../inputs/random.json -o QuickSort -c 1000 -v
 func main() {
-	args := getArgs()
-	validateArgs(args)
+	benchmarkerManager := benchmarkers.GetBenchmarkerManager()
 
-	// Prints benchmaker analysis for a given operation
-	switch args.Operation {
-	case "QuickSort":
-		benchmarker := benchmarkers.NewQuickSortBenchmarker(args.InputFile)
-		benchmarkers.PrintBenchmarkAnalysis(benchmarker, uint(args.Count))
-	default:
-		utils.Fatalf("Error: The operation '%s' is not supported.", args.Operation)
-	}
+	args := getArgs()
+	validateArgs(args, benchmarkerManager.GetOperationNames())
+
+	// Runs benchmarker operations
+	benchmarker := benchmarkerManager.GetOperationBenchmarker(args.Operation)
+	benchmarkers.ConsumeInputFile(benchmarker, args.InputFile)
+	benchmarkers.PrintBenchmarkAnalysis(benchmarker, uint(args.Count))
 }
