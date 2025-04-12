@@ -16,6 +16,10 @@ public abstract class Benchmarker {
 
     public abstract void consumeInputFile(String inputFilePath) throws IOException;
 
+    public String getOperationName() {
+        return operationName;
+    }
+
     public List<Long> getOperationExecutionResults(int executionCount) {
         List<Long> executionResults = new ArrayList<>(executionCount);
         for (int i = 0; i < executionCount; i++) {

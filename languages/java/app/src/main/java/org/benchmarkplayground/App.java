@@ -12,7 +12,7 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.benchmarkplayground.benchmarkers.Benchmarker;
-import org.benchmarkplayground.benchmarkers.impl.QuickSortBenchmarker;
+import org.benchmarkplayground.benchmarkers.BenchmarkerManager;
 
 
 public class App {
@@ -49,7 +49,6 @@ public class App {
         CommandLineParser parser = new DefaultParser();
         Options options = getCliOptions();
 
-
         String operation = null;
         String inputFile = null;
         int count = 1000;
@@ -65,24 +64,28 @@ public class App {
             System.exit(1);
         }
         
+        // Gets actual Benchmarker itself
         Benchmarker benchmarker = null;
-        switch (operation) {
-            case "QuickSort":
-                benchmarker = new QuickSortBenchmarker();
-                break;
-            default:
-                // TODO: get list of valid operations dynamically
-                System.err.println("Invalid operation passed.");
-                System.exit(1);
+        try {
+            benchmarker = BenchmarkerManager.getBenchmarkerRunner().getOperationBenchmarker(operation);
+        } catch (Exception e) {
+            System.err.println(String.format("An error occurred while attempting to get the benchmarker for operation '%s'.", operation));
+            e.printStackTrace();
+            System.exit(1);
         }
 
+        // Attempts t
         try {
             benchmarker.consumeInputFile(inputFile);
+            benchmarker.printBenchmarkAnalysis(count);
         } catch (IOException e) {
-            System.out.println("An error occurred while attempting to read file.");
+            System.err.println("An error occurred while attempting to read file.");
             e.printStackTrace();
+            System.exit(1);
+        } catch (Exception e) {
+            System.err.println(String.format("An unknown error occured while attempting to benchmark operation '%s'.", operation));
+            e.printStackTrace();
+            System.exit(1);
         }
-
-        benchmarker.printBenchmarkAnalysis(count);
     }
 }
