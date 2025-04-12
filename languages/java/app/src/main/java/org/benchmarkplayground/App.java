@@ -74,7 +74,7 @@ public class App {
             System.exit(1);
         }
 
-        // Attempts t
+        // Attempts to consume input file and use its data to perform benchmarking of given operation 
         try {
             benchmarker.consumeInputFile(inputFile);
             benchmarker.printBenchmarkAnalysis(count);
