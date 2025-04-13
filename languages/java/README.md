@@ -38,7 +38,7 @@ curl -s "https://get.sdkman.io" | bash
 
 ### Install Gradle
 
-Install `SDKMAN` with the following command:
+[Gradle](https://gradle.org/) is the build system that will be used to manage this Java application. Install **Gradle** with the following command:
 
 ```
 sdk install gradle 8.13
