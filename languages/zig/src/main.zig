@@ -42,7 +42,7 @@ pub fn main() !void {
 
     // Retrieves CLI arguments and stores them into local variables
     if (res.args.help != 0)
-        std.debug.print("--help\n", .{});
+        std.log.info("--help\n", .{});
     if (res.args.operation) |o|
         operation = @constCast(o); // Won't be modified after being set, but satisfies compiler
     if (res.args.inputfile) |i|
@@ -52,7 +52,7 @@ pub fn main() !void {
 
     // Runs benchmarker
     runBenchmarker(operation, input_file, count) catch |err| {
-        std.debug.print("An error occurred while running the benchmarker: {}", .{err});
+        std.log.err("An error occurred while running the benchmarker: {}", .{err});
     };
 }
 

@@ -14,6 +14,6 @@ pub fn runBenchmarker(operation: []u8, input_file: []u8, count: usize) !void {
         benchmarker.printBenchmarkAnalysis(count);
         benchmarker.cleanUp(benchmarker);
     } else {
-        std.debug.print("The following operation is invalid: {s}\n", .{operation});
+        std.log.err("The following operation is invalid: {s}\n", .{operation});
     }
 }

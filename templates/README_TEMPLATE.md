@@ -7,12 +7,7 @@ This is a passion project that seeks to benchmark various algorithms using diffe
 
 Benchmarking infrastructure has been set up using the following languages so far:
 
-* [C](https://github.com/rdelacrz/benchmark-playground/tree/main/languages/c)
-* [Go](https://github.com/rdelacrz/benchmark-playground/tree/main/languages/go)
-* [Java](https://github.com/rdelacrz/benchmark-playground/tree/main/languages/java)
-* [Python](https://github.com/rdelacrz/benchmark-playground/tree/main/languages/python)
-* [Rust](https://github.com/rdelacrz/benchmark-playground/tree/main/languages/rust)
-* [Zig](https://github.com/rdelacrz/benchmark-playground/tree/main/languages/zig)
+$language_links
 
 ## Benchmarked Operations
 
@@ -22,13 +17,4 @@ The following tables contains the most recent benchmark data for each operation 
 python3 readme_generator.py
 ```
 
-### QuickSort
-Language | Benchmark Time (1000 executions)
---- | ---
-c | 79.273900 ms
-go | 114.895070 ms
-java | 186.931348 ms
-python | 1022.073746 ms
-rust | 99.242151 ms
-zig | 89.471259 ms
-
+$benchmark_tables

@@ -47,7 +47,6 @@ StringListData extract_str_list_from_json_str(char* json_str) {
     char** list_str = malloc(string_count * sizeof(char *));
     if (!list_str) {
         fprintf(stderr, "Failed to allocate memory for string list\n");
-        free(json_str);
         cJSON_Delete(json_array);
         exit(EXIT_FAILURE);
     }
@@ -65,14 +64,13 @@ StringListData extract_str_list_from_json_str(char* json_str) {
                     free(list_str[i]);
                 }
                 free(list_str);
-                free(json_str);
                 cJSON_Delete(json_array);
                 exit(EXIT_FAILURE);
             }
             index++;
         }
     }
-
+    
     cJSON_Delete(json_array);   // Clean up the JSON object
 
     return (StringListData) {.list = list_str, .size = string_count};

@@ -39,7 +39,8 @@ pub fn Benchmarker(comptime T: type) type {
                 total_nano_time += @floatFromInt(results.items[i]);
             }
 
-            std.debug.print("Zig's {s} execution time (over {d} loops): {d:.6} ms\n", .{ self.operation_name, execution_count, total_nano_time / 1000000 });
+            const stdout = std.io.getStdOut().writer();
+            stdout.print("Zig's {s} execution time (over {d} loops): {d:.6} ms\n", .{ self.operation_name, execution_count, total_nano_time / 1000000 }) catch unreachable;
         }
     };
 }
