@@ -40,7 +40,7 @@ func (m *BenchmarkerManager) GetOperationBenchmarker(operationName string) Bench
 	if !exists {
 		validOperations := m.GetOperationNames()
 		utils.Fatalf(
-			"Operation name '%s' not found. Operation must be one of the following: %s",
+			"Operation name '%s' is invalid. Operation must be one of the following: %s",
 			operationName,
 			strings.Join(validOperations, ", "),
 		)
