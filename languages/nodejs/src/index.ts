@@ -1,8 +1,7 @@
 import { InvalidArgumentError, program } from 'commander';
-import Decimal from 'decimal.js';
 import fs from 'fs';
 import process from 'node:process';
-import { BENCHMARKER_MANAGER } from '@benchmarkers/benchmarker_manager';
+import { BENCHMARKER_MANAGER } from '@benchmarkers/benchmarker-manager';
 
 const DEFAULT_COUNT = 1000;
 

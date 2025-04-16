@@ -4,7 +4,8 @@
   "description": "An algorithm benchmarker written in NodeJS.",
   "main": "src/index.ts",
   "scripts": {
-    "start": "ts-node -r tsconfig-paths/register src/main.ts",
+    "dev": "ts-node -r tsconfig-paths/register src/main.ts",
+    "build": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -12,6 +13,7 @@
   "devDependencies": {
     "@types/node": "^22.14.1",
     "ts-node": "^10.9.2",
+    "tsc-alias": "^1.8.15",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.8.3"
   },
