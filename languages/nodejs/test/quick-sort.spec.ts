@@ -74,4 +74,20 @@ describe("QuickSort algorithm", function() {
         // Arrange
         expect(expectedResult).toEqual(actualResult);
     });
+
+    test("Sorts already sorted list.", function () {
+        // Arrange
+        let unsorted: ComparableNumber[] = [
+            4, -54, 40, 400, 2, -7, 0, 1, 4
+        ].map(n => new ComparableNumber(n));
+        const expectedResult: ComparableNumber[] = [
+            -54, -7, 0, 1, 2, 4, 4, 40, 400
+        ].map(n => new ComparableNumber(n));
+
+        // Act
+        const actualResult = quickSort(unsorted);
+
+        // Arrange
+        expect(expectedResult).toEqual(actualResult);
+    });
 });
