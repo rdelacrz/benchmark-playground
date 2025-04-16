@@ -16,6 +16,7 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
-    "commander": "^13.1.0"
+    "commander": "^13.1.0",
+    "decimal.js": "^10.5.0"
   }
 }

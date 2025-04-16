@@ -12,9 +12,9 @@ public abstract class Benchmarker {
 
     protected String operationName;
 
-    public abstract Long getOperationExecutionTime();
-
     public abstract void consumeInputFile(String inputFilePath) throws IOException;
+
+    public abstract Long getOperationExecutionTime();
 
     public String getOperationName() {
         return operationName;

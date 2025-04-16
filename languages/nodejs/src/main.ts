@@ -1,9 +1,8 @@
 import { InvalidArgumentError, program } from 'commander';
+import Decimal from 'decimal.js';
 import fs from 'fs';
 import process from 'node:process';
-import { quickSort } from '@operations/quick-sort';
-import { ComparableString } from '@utils/comparable';
-import { roundToDecimals } from '@utils/utilities';
+import { BENCHMARKER_MANAGER } from '@benchmarkers/benchmarker_manager';
 
 const DEFAULT_COUNT = 1000;
 
@@ -54,32 +53,10 @@ program.parse(process.argv);
 
 const options = program.opts();
 
-
 const operation = options.operation as string;
 const inputFilePath = options.inputfile as string;
 const count = options.count as number;
 
-let jsonArr: string[] = [];
-try {
-    const data = fs.readFileSync(inputFilePath);
-    jsonArr = JSON.parse(data.toString());
-} catch (e: any) {
-    throw new Error(`Something wrong occurred while attempting to read input file: ${e}`);
-}
-
-let totalTime = BigInt(0);
-for (let i = 0; i < count; i++) {
-    let copyArr = jsonArr.map(str => new ComparableString(str));
-    const start = process.hrtime.bigint();
-    quickSort(copyArr);
-
-    if (i < 2) {
-        copyArr.forEach(s => console.log(s));
-    }
-
-    const end = process.hrtime.bigint();
-    totalTime += (end - start);
-}
-
-const milliseconds = roundToDecimals(Number(totalTime / BigInt(1000000)), 6);
-console.log(`NodeJs's ${operation} execution time (over ${count} loops): ${milliseconds} ms`);
+const benchmarker = BENCHMARKER_MANAGER.getOperationBenchmarker(operation);
+benchmarker.consumeInputFile(inputFilePath);
+benchmarker.printBenchmarkAnalysis(count);

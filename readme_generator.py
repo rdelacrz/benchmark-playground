@@ -23,6 +23,23 @@ def _get_readme_template(template_path="templates/README_TEMPLATE.md"):
     with open(template_path, 'r') as f:
         return f.read()
     
+def _format_language_name(language_name: str):
+    """
+    Formats the language name so that it is displayed in its proper form.
+
+    Args:
+        language_name (str): Name of language being re-formatted.
+
+    Returns: 
+        str: Formatted language names.
+    """
+
+    match language_name.lower():
+        case "nodejs":
+            return "NodeJs"
+        case _:
+            return language_name.title()
+    
 def _get_run_file_per_language(language_dir=DEFAULT_LANGUAGES_DIR, run_file="run.sh"):
     """
     Gets a list of tuples for each available programming language with a run.sh file.
@@ -80,9 +97,10 @@ def _parse_run_cli_output(language_dir=DEFAULT_LANGUAGES_DIR):
             stdout, stderr = process.communicate()
 
             # Exits application on error
+            formatted_language_name = _format_language_name(language_name)
             if stderr:
                 error_msg = "An error occurred while attempting to run {} for the language {}:\n\t{}".format(
-                    operation, language_name.title(), stderr
+                    operation, formatted_language_name, stderr
                 )
                 raise Exception(error_msg)
 
@@ -91,7 +109,7 @@ def _parse_run_cli_output(language_dir=DEFAULT_LANGUAGES_DIR):
 
             if not pattern_match:
                 print("WARNING: {} CLI output for the {} operation could not be parsed properly! CLI output: {}".format(
-                    language_name.title(), operation, cli_output
+                    formatted_language_name, operation, cli_output
                 ))
             else:
                 cli_output_map[operation][language_name] = pattern_match.group(1)
@@ -101,14 +119,15 @@ def _parse_run_cli_output(language_dir=DEFAULT_LANGUAGES_DIR):
 def write_readme_file():
     template_content = _get_readme_template()
 
+    # Sets up bullet list of implemented programming languages within the project (language folders that contain a run.sh file)
     language_link_list: list[str] = []
     for language in _get_available_languages():
         language_link_list.append("* [{}](https://github.com/rdelacrz/benchmark-playground/tree/main/languages/{})".format(
             language.title(), language)
         )
 
+    # Generates benchmark tables for each operation
     benchmark_list: list[str] = []
-
     for operation, language_map in _parse_run_cli_output().items():
         count = OPERATION_CONFIGS[operation]["-c"]
         benchmark_list.append("### {}".format(operation))

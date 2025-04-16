@@ -7,12 +7,12 @@ This is a passion project that seeks to benchmark various algorithms using diffe
 
 Benchmarking infrastructure has been set up using the following languages so far:
 
-* [C](https://github.com/rdelacrz/benchmark-playground/tree/main/languages/C)
-* [Go](https://github.com/rdelacrz/benchmark-playground/tree/main/languages/Go)
-* [Java](https://github.com/rdelacrz/benchmark-playground/tree/main/languages/Java)
-* [Python](https://github.com/rdelacrz/benchmark-playground/tree/main/languages/Python)
-* [Rust](https://github.com/rdelacrz/benchmark-playground/tree/main/languages/Rust)
-* [Zig](https://github.com/rdelacrz/benchmark-playground/tree/main/languages/Zig)
+* [C](https://github.com/rdelacrz/benchmark-playground/tree/main/languages/c)
+* [Go](https://github.com/rdelacrz/benchmark-playground/tree/main/languages/go)
+* [Java](https://github.com/rdelacrz/benchmark-playground/tree/main/languages/java)
+* [Python](https://github.com/rdelacrz/benchmark-playground/tree/main/languages/python)
+* [Rust](https://github.com/rdelacrz/benchmark-playground/tree/main/languages/rust)
+* [Zig](https://github.com/rdelacrz/benchmark-playground/tree/main/languages/zig)
 
 ## Benchmarked Operations
 
@@ -25,10 +25,10 @@ python3 readme_generator.py
 ### QuickSort
 Language | Benchmark Time (1000 executions)
 --- | ---
-C | 79.245600 ms
-Go | 113.269822 ms
-Java | 184.881992 ms
-Python | 998.703241 ms
-Rust | 97.326103 ms
-Zig | 89.586018 ms
+c | 85.106100 ms
+go | 111.641903 ms
+java | 207.787209 ms
+python | 1049.097776 ms
+rust | 100.295197 ms
+zig | 85.222169 ms
 
