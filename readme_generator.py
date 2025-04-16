@@ -122,8 +122,9 @@ def write_readme_file():
     # Sets up bullet list of implemented programming languages within the project (language folders that contain a run.sh file)
     language_link_list: list[str] = []
     for language in _get_available_languages():
+        formatted_language_name = _format_language_name(language)
         language_link_list.append("* [{}](https://github.com/rdelacrz/benchmark-playground/tree/main/languages/{})".format(
-            language.title(), language)
+            formatted_language_name, language)
         )
 
     # Generates benchmark tables for each operation
