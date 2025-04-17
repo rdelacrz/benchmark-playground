@@ -1,13 +1,13 @@
-pub mod base_benchmarker;
-pub mod quick_sort_benchmarker;
+pub mod benchmarker;
+pub mod implementations;
 
-use base_benchmarker::BaseBenchmarker;
-use quick_sort_benchmarker::QuickSortBenchmarker;
+use benchmarker::Benchmarker;
+use implementations::quick_sort_benchmarker::QuickSortBenchmarker;
 
 use crate::utils::errors::BenchmarkerError;
 
-pub fn get_benchmarker(operation_name: &str) -> Result<Box<dyn BaseBenchmarker>, BenchmarkerError> {
-    let benchmarkers: Vec<Box<dyn BaseBenchmarker>> = vec![
+pub fn get_benchmarker(operation_name: &str) -> Result<Box<dyn Benchmarker>, BenchmarkerError> {
+    let benchmarkers: Vec<Box<dyn Benchmarker>> = vec![
         Box::new(QuickSortBenchmarker::new())
     ];
     

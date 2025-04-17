@@ -1,4 +1,4 @@
 #!/bin/bash
 
 # Example: ./run.sh -i ../../inputs/random.json -o QuickSort -c 1000
-node dist/src/index.js $@
+node dist/index.js $@

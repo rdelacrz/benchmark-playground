@@ -6,7 +6,7 @@ use std::fs::File;
 use std::io::BufReader;
 use std::time::{Duration, Instant};
 
-use crate::benchmarkers::base_benchmarker::BaseBenchmarker;
+use crate::benchmarkers::benchmarker::Benchmarker;
 use crate::utils::errors::BenchmarkerError;
 use crate::operations::quick_sort::quick_sort;
 
@@ -24,7 +24,7 @@ impl QuickSortBenchmarker {
     }
 }
 
-impl BaseBenchmarker for QuickSortBenchmarker {
+impl Benchmarker for QuickSortBenchmarker {
     fn consume_input_file(&mut self, input_file_path: &str) -> Result<(), BenchmarkerError> {
         let file_open_result = File::open(input_file_path);
         let input_file = match file_open_result {

@@ -6,7 +6,7 @@ use std::{ops::Add, time::Duration};
 
 use crate::utils::errors::BenchmarkerError;
 
-pub trait BaseBenchmarker {
+pub trait Benchmarker {
     fn consume_input_file(&mut self, input_file_path: &str) -> Result<(), BenchmarkerError>;
 
     fn get_operation_name(&self) -> &str;
