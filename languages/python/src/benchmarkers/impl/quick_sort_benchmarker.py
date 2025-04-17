@@ -1,9 +1,9 @@
 import json
 
-from benchmarkers._base_benchmarker import BaseBenchmarker
+from benchmarkers.benchmarker import Benchmarker
 from operations.quick_sort import quick_sort
 
-class QuickSortBenchmarker(BaseBenchmarker):
+class QuickSortBenchmarker(Benchmarker):
     def __init__(self, input_file_path: str):
         self.operation_name = "QuickSort"
 

@@ -1,6 +1,6 @@
 import argparse
 
-from benchmarkers.quick_sort_benchmarker import QuickSortBenchmarker
+from benchmarkers.impl.quick_sort_benchmarker import QuickSortBenchmarker
 
 BENCHMARK_MAP = {
     'QuickSort': QuickSortBenchmarker,

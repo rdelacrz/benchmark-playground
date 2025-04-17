@@ -8,6 +8,7 @@ const jestConfig: Config = {
   roots: ['<rootDir>'],
   modulePaths: [compilerOptions.baseUrl],
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths),
+  modulePathIgnorePatterns: ['/dist/']
 }
 
 export default jestConfig;

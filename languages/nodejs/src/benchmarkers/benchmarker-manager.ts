@@ -1,7 +1,7 @@
 import { Benchmarker } from '@benchmarkers/benchmarker';
 import { QuickSortBenchmarker } from '@benchmarkers/impl/quick-sort-benchmarker';
 
-type BenchmarkerMap = {[id: string]: Benchmarker};
+type BenchmarkerMap = {[id: string]: Benchmarker<any>};
 
 class BenchmarkerManager {
     benchmarkers: BenchmarkerMap;

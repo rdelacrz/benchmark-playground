@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 import time
 
-class BaseBenchmarker(ABC):
+class Benchmarker(ABC):
     @abstractmethod
     def __init__(self, input_file_path: str):
         self.operation_name = "Unknown Operation"
@@ -17,7 +17,7 @@ class BaseBenchmarker(ABC):
         ...
 
     @abstractmethod
-    def _perform_operation(self, *args) -> any:
+    def _perform_operation(self, *args):
         """
         Performs operation defined by the child class that inherits this base class.
         """

@@ -3,11 +3,19 @@ import { Benchmarker } from '@benchmarkers/benchmarker';
 import { quickSort } from '@operations/quick-sort';
 import { ComparableString } from '@utils/comparable';
 
-export class QuickSortBenchmarker extends Benchmarker {
+export class QuickSortBenchmarker extends Benchmarker<ComparableString[]> {
     jsonArr: string[] = [];
 
     constructor() {
         super("QuickSort");
+    }
+
+    protected getOperationInput(): ComparableString[] {
+        return this.jsonArr.map(str => new ComparableString(str));
+    }
+
+    protected performOperation(inputContext: ComparableString[]): void {
+        quickSort(inputContext);
     }
 
     consumeInputFile(inputFilePath: string): void {
@@ -17,15 +25,5 @@ export class QuickSortBenchmarker extends Benchmarker {
         } catch (e: any) {
             throw new Error(`Something wrong occurred while attempting to read input file: ${e}`);
         }
-    }
-
-    protected getOperationExecutionTime(): bigint {
-        let copyArr = this.jsonArr.map(str => new ComparableString(str));
-
-        const start = process.hrtime.bigint();
-        quickSort(copyArr);
-        const end = process.hrtime.bigint();
-
-        return (end - start);
     }
 }
