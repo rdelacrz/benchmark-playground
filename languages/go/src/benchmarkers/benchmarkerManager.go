@@ -1,12 +1,14 @@
 package benchmarkers
 
 import (
+	"errors"
+	"fmt"
 	"maps"
 	"slices"
 	"sort"
 	"strings"
 
-	"github.com/benchmark-playground/languages/go/utils"
+	"github.com/benchmark-playground/languages/go/benchmarkers/impl"
 )
 
 type BenchmarkerManager struct {
@@ -15,13 +17,13 @@ type BenchmarkerManager struct {
 
 func GetBenchmarkerManager() *BenchmarkerManager {
 	benchmarkerList := []Benchmarker{
-		GetQuickSortBenchmarker(),
+		impl.GetQuickSortBenchmarker(),
 	}
 
 	// Maps each benchmarker to its associated operation name
 	benchmarkers := make(map[string]Benchmarker)
 	for _, benchmarker := range benchmarkerList {
-		benchmarkers[benchmarker.getOperationName()] = benchmarker
+		benchmarkers[benchmarker.GetOperationName()] = benchmarker
 	}
 
 	return &BenchmarkerManager{
@@ -35,15 +37,15 @@ func (m *BenchmarkerManager) GetOperationNames() []string {
 	return operationNames
 }
 
-func (m *BenchmarkerManager) GetOperationBenchmarker(operationName string) Benchmarker {
+func (m *BenchmarkerManager) GetOperationBenchmarker(operationName string) (Benchmarker, error) {
+	var err error
 	benchmarker, exists := m.benchmarkers[operationName]
 	if !exists {
 		validOperations := m.GetOperationNames()
-		utils.Fatalf(
-			"Operation name '%s' is invalid. Operation must be one of the following: %s",
+		errorMessage := fmt.Sprintf("Operation name '%s' is invalid. Operation must be one of the following: %s",
 			operationName,
-			strings.Join(validOperations, ", "),
-		)
+			strings.Join(validOperations, ", "))
+		err = errors.New(errorMessage)
 	}
-	return benchmarker
+	return benchmarker, err
 }

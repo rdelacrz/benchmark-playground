@@ -45,13 +45,24 @@ func validateArgs(args Args, validOperations []string) {
 // go build -C src -ldflags="-s -w" -o ../build/main
 // ./build/main -i ../../inputs/random.json -o QuickSort -c 1000 -v
 func main() {
+	var err error = nil
 	benchmarkerManager := benchmarkers.GetBenchmarkerManager()
 
 	args := getArgs()
 	validateArgs(args, benchmarkerManager.GetOperationNames())
 
-	// Runs benchmarker operations
-	benchmarker := benchmarkerManager.GetOperationBenchmarker(args.Operation)
-	benchmarkers.ConsumeInputFile(benchmarker, args.InputFile)
-	benchmarkers.PrintBenchmarkAnalysis(benchmarker, uint(args.Count))
+	// Retrieves benchmarker for given operation
+	benchmarker, err := benchmarkerManager.GetOperationBenchmarker(args.Operation)
+	if err != nil {
+		utils.Fatalf("An error occurred while getting a benchmarker for a given operation: %v", err)
+	}
+
+	// Performs benchmark
+	if err = benchmarker.ConsumeInputFile(args.InputFile); err != nil {
+		utils.Fatalf("An error occurred while attempting to consume input file: %v", err)
+	}
+
+	if err = benchmarkers.PrintBenchmarkAnalysis(benchmarker, uint(args.Count)); err != nil {
+		utils.Fatalf("An error occurred while attempting to print benchmark analysis: %v", err)
+	}
 }

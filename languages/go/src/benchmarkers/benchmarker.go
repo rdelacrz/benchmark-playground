@@ -11,23 +11,42 @@ import (
 var nanoPerMilli int64 = 1000000
 
 type Benchmarker interface {
-	consumeInputFile(string)
-	getOperationName() string
-	getOperationExecutionTime() time.Duration
+	ConsumeInputFile(string) error
+	GetOperationName() string
+	GetOperationInput() any
+	PerformOperation(inputContext any) error
 }
 
-func ConsumeInputFile(b Benchmarker, inputFilePath string) {
-	b.consumeInputFile(inputFilePath)
+func getOperationExecutionTime(b Benchmarker) (time.Duration, error) {
+	contextInput := b.GetOperationInput()
+
+	start := time.Now()
+	err := b.PerformOperation(contextInput)
+	executionTime := time.Since(start)
+
+	return executionTime, err
 }
 
-func GetOperationExecutionResults(b Benchmarker, executionCount uint) []time.Duration {
-	return lo.Map(make([]struct{}, executionCount), func(_ struct{}, _ int) time.Duration {
-		return b.getOperationExecutionTime()
-	})
+func GetOperationExecutionResults(b Benchmarker, executionCount uint) ([]time.Duration, error) {
+	var err error
+	var results []time.Duration = make([]time.Duration, executionCount)
+	for _ = range executionCount {
+		executionTime, err := getOperationExecutionTime(b)
+		if err != nil {
+			return results, err
+		}
+		results = append(results, executionTime)
+	}
+
+	return results, err
 }
 
-func PrintBenchmarkAnalysis(b Benchmarker, executionCount uint) {
-	results := GetOperationExecutionResults(b, executionCount)
+func PrintBenchmarkAnalysis(b Benchmarker, executionCount uint) error {
+	results, err := GetOperationExecutionResults(b, executionCount)
+	if err != nil {
+		return err
+	}
+
 	total := lo.Reduce(results, func(agg int64, item time.Duration, _ int) int64 {
 		return agg + item.Nanoseconds()
 	}, int64(0))
@@ -35,5 +54,7 @@ func PrintBenchmarkAnalysis(b Benchmarker, executionCount uint) {
 	// TODO: Print more detailed time information
 	totalMilli := utils.RoundToDecimals(float64(total)/float64(nanoPerMilli), 6)
 
-	fmt.Printf("Go's %s execution time (over %d loops): %.6f ms\n", b.getOperationName(), executionCount, totalMilli)
+	fmt.Printf("Go's %s execution time (over %d loops): %.6f ms\n", b.GetOperationName(), executionCount, totalMilli)
+
+	return nil
 }
