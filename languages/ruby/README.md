@@ -40,7 +40,7 @@ Clone [ruby-build](https://github.com/rbenv/ruby-build) (installation plugin for
 git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
 ```
 
-*Optional: Upgrade **ruby-build** with:
+*Optional: Upgrade **ruby-build** with*:
 ```
 git -C "$(rbenv root)"/plugins/ruby-build pull
 ```
