@@ -46,6 +46,6 @@ def main():
         benchmarker = BENCHMARK_MAP[args.operation](args.inputfile)
         benchmarker.print_benchmark_analysis(args.count)
 
-# python3 main.py -i ../../inputs/random.json -o quick_sort -c 1000
+# python3 main.py -i ../../inputs/random_string_list.json -o quick_sort -c 1000
 if __name__ == "__main__":
     main()

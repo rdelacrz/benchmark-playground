@@ -46,7 +46,7 @@ program.parse(process.argv);
 // Runs benchmarking
 /////////////////////
 
-// yarn start -i ../../inputs/random.json -o QuickSort -c 1000
+// yarn start -i ../../inputs/random_string_list.json -o QuickSort -c 1000
 
 const options = program.opts();
 

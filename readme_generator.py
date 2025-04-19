@@ -12,7 +12,7 @@ from subprocess import Popen, PIPE
 DEFAULT_LANGUAGES_DIR = "languages"
 OPERATION_CONFIGS = {
     'QuickSort': {
-        '-i': '../../inputs/random.json',   # Should be relative to the run.sh files in the languages folders
+        '-i': '../../inputs/random_string_list.json',   # Should be relative to the run.sh files in the languages folders
         '-c': '1000',
     },
 }

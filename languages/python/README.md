@@ -40,4 +40,4 @@ This command will run the Python main.py, passing any CLI parameters directly to
 ./run.sh -o <operation_name> -i <input_file> -c <execution_count>
 ```
 
-Example: `./run.sh -i ../../inputs/random.json -o QuickSort -c 1000 -v`
+Example: `./run.sh -i ../../inputs/random_string_list.json -o QuickSort -c 1000 -v`

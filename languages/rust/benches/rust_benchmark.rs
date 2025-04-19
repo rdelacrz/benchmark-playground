@@ -8,7 +8,7 @@ use std::{fs::File, io::BufReader};
 use rust_benchmark_runner::operations::quick_sort::quick_sort;
 
 fn read_input() -> Vec<String> {
-    let input_file = File::open("../../inputs/random.json").unwrap();
+    let input_file = File::open("../../inputs/random_string_list.json").unwrap();
     let reader = BufReader::new(input_file);
     let unsorted_list: Vec<String> = serde_json::from_reader(reader).unwrap();
     return unsorted_list;

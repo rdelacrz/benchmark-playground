@@ -43,7 +43,7 @@ func validateArgs(args Args, validOperations []string) {
 }
 
 // go build -C src -ldflags="-s -w" -o ../build/main
-// ./build/main -i ../../inputs/random.json -o QuickSort -c 1000 -v
+// ./build/main -i ../../inputs/random_string_list.json -o QuickSort -c 1000 -v
 func main() {
 	var err error = nil
 	benchmarkerManager := benchmarkers.GetBenchmarkerManager()

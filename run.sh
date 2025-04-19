@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Example: ./run.sh -i ../../inputs/random.json -o QuickSort -c 1000
+# Example: ./run.sh -i ../../inputs/random_string_list.json -o QuickSort -c 1000
 
 # Check if at least one argument is provided
 if [ "$#" -lt 1 ]; then
