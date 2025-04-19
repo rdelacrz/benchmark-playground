@@ -4,7 +4,7 @@
  
 use std::{
     ops::Add,
-    time::{Duration, Instant}
+    time::Duration
 };
 
 use crate::utils::errors::BenchmarkerError;
@@ -14,16 +14,7 @@ pub trait Benchmarker {
 
     fn get_operation_name(&self) -> &str;
 
-    fn generate_operation_performer(&self) -> Box<dyn FnMut()>;
-
-    fn get_operation_execution_time(&self) -> Duration {
-        // Important to set up operation performing function before time benchmarks to avoid including extraneous execution time
-        let mut perform_operation = self.generate_operation_performer();
-
-        let start_time = Instant::now();
-        perform_operation();
-        start_time.elapsed()
-    }
+    fn get_operation_execution_time(&self) -> Duration;
 
     fn get_operation_execution_results(&self, execution_count: u32) -> Vec<Duration> {
         Vec::from_iter((0..execution_count).map(|_| self.get_operation_execution_time()))

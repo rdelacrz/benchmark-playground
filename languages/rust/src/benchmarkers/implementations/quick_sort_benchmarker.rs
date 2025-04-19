@@ -4,7 +4,9 @@
 
 use std::fs::File;
 use std::io::BufReader;
+use std::time::{Duration, Instant};
 
+use crate::benchmark_operation;
 use crate::benchmarkers::benchmarker::Benchmarker;
 use crate::utils::errors::BenchmarkerError;
 use crate::operations::quick_sort::quick_sort;
@@ -55,10 +57,8 @@ impl Benchmarker for QuickSortBenchmarker {
         self.operation_name.as_str()
     }
 
-    fn generate_operation_performer(&self) -> Box<dyn FnMut()> {
+    fn get_operation_execution_time(&self) -> Duration {
         let mut unsorted_list_copy = self.unsorted_list.to_owned();
-        Box::new(move || {
-            quick_sort(unsorted_list_copy.as_mut_slice()); ()
-        })
+        benchmark_operation!(quick_sort(unsorted_list_copy.as_mut_slice()))
     }
 } 
