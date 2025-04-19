@@ -75,7 +75,7 @@ describe("QuickSort algorithm", function() {
         expect(expectedResult).toEqual(actualResult);
     });
 
-    test("Sorts already sorted list.", function () {
+    test("Sorts integer lists.", function () {
         // Arrange
         let unsorted: ComparableNumber[] = [
             4, -54, 40, 400, 2, -7, 0, 1, 4

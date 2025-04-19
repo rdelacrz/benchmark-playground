@@ -5,10 +5,7 @@ module QuickSortOperation
     self.quick_sort_inner(arr, 0, arr.length() - 1)
   end
 
-
-  private 
-
-  def self.partition(arr, low, high)
+  private_class_method def self.partition(arr, low, high)
     pivot = high
     i = low - 1
   
@@ -25,7 +22,7 @@ module QuickSortOperation
     i
   end
   
-  def self.quick_sort_inner(arr, low, high)
+  private_class_method def self.quick_sort_inner(arr, low, high)
     if low < high then
       pivot_index = partition(arr, low, high)
       quick_sort_inner(arr, low, pivot_index - 1)

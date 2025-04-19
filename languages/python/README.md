@@ -33,10 +33,6 @@ Alternatively, if you are updating the third party dependencies to install in th
 pip freeze > requirements.txt
 ```
 
-## Building python_benchmark_runner
-
-
-
 ## Running python_benchmark_runner
 
 This command will run the Python main.py, passing any CLI parameters directly to the executable.

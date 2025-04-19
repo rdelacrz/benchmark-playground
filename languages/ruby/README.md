@@ -82,8 +82,13 @@ ruby -v
 ```
 
 ### Install Ruby gems
-Ruby dependencies (aka **gems**) can be install wtih the following command:
-
+Ruby dependencies (aka **gems**) can be install with the following command:
 ```
 gem install <gem_name>
+```
+
+#### Install Rspec
+The [Rspec](https://rspec.info/) framework will be used to run unit tests for Ruby. Install it with the following command:
+```
+gem install rspec
 ```
