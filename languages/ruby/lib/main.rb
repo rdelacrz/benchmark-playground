@@ -1,8 +1,5 @@
 require_relative 'cli_parser'
-require_relative 'operations/quick_sort'
 require_relative 'benchmarkers/benchmarker_manager'
-
-require 'json'
 
 benchmarker_manager = BenchmarkerManager.new
 options = parse_options(benchmarker_manager)
