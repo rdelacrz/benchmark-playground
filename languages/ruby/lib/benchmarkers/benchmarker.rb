@@ -4,7 +4,7 @@ class Benchmarker
   NANO_PER_MILLI = 1_000_000
 
   attr_accessor :operation_name
-  
+
   def initialize(operation_name)
     @operation_name = operation_name
   end
@@ -21,7 +21,7 @@ class Benchmarker
     end_time - start_time
   end
 
-  def get_operation_execution_results(execution_count, &operation_execution_block)
+  def get_operation_execution_results(execution_count)
     [*0..execution_count-1].map { get_operation_execution_time }
   end
 
