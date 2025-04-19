@@ -12,6 +12,7 @@ Benchmarking infrastructure has been set up using the following languages so far
 * [Java](https://github.com/rdelacrz/benchmark-playground/tree/main/languages/java)
 * [NodeJs](https://github.com/rdelacrz/benchmark-playground/tree/main/languages/nodejs)
 * [Python](https://github.com/rdelacrz/benchmark-playground/tree/main/languages/python)
+* [Ruby](https://github.com/rdelacrz/benchmark-playground/tree/main/languages/ruby)
 * [Rust](https://github.com/rdelacrz/benchmark-playground/tree/main/languages/rust)
 * [Zig](https://github.com/rdelacrz/benchmark-playground/tree/main/languages/zig)
 
@@ -26,11 +27,12 @@ python3 readme_generator.py
 ### QuickSort
 Language | Benchmark Time (1000 executions)
 --- | ---
-c | 84.763200 ms
-go | 109.027975 ms
-java | 204.311266 ms
-nodejs | 257.339896 ms
-python | 981.736422 ms
-rust | 93.966502 ms
-zig | 86.382845 ms
+c | 78.970500 ms
+go | 111.159724 ms
+java | 184.298805 ms
+nodejs | 282.2858 ms
+python | 965.615511 ms
+ruby | 1913.299222 ms
+rust | 88.650719 ms
+zig | 80.146223 ms
 

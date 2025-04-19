@@ -27,10 +27,8 @@ function validateFilePath(value: string, dummyPrevious: any): string {
 
 function validateCount(value: string, dummyPrevious: any): number {
     const parsedCount = parseInt(value ?? DEFAULT_COUNT, 10);
-    if (isNaN(parsedCount)) {
-        throw new InvalidArgumentError(`Given count '${value}' is not a valid integer!`);
-    } else if (parsedCount <= 0) {
-        throw new InvalidArgumentError(`Given count '${value}' must be larger than 0!`);
+    if (isNaN(parsedCount) || parsedCount <= 0) {
+        throw new InvalidArgumentError(`Given count '${value}' is not a valid integer greater than 0!`);
     }
     return parsedCount;
 }

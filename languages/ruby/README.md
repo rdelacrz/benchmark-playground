@@ -1,0 +1,89 @@
+# ruby_benchmark_runner
+
+The following subpackage runs benchmarks using code written in [Ruby](https://www.ruby-lang.org/en/).
+
+## Prerequisites
+
+Several software must be installed in order to run **ruby_benchmark_runner**. The following instructions will assume that the operating system hosting this application is Ubuntu.
+
+Before installing anything, it is recommended that you run the following to update the system packages on Ubuntu:
+```
+sudo apt update
+```
+
+The next step upgrades the entire system.
+```
+sudo apt upgrade
+```
+
+Next, add all Ubuntu dependencies needed to run Ruby:
+```
+sudo apt install curl g++ gcc autoconf automake bison libc6-dev libffi-dev libgdbm-dev libncurses5-dev libsqlite3-dev libtool libyaml-dev make pkg-config sqlite3 zlib1g-dev libgmp-dev libreadline-dev libssl-dev
+```
+
+### Install rbenv
+
+[rbenv](https://github.com/rbenv/rbenv) needs to be installed by following these steps.
+
+Clone rbenv into `~/.rbenv`.
+```
+git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+```
+
+Set up your shell to load **rbenv**
+```
+~/.rbenv/bin/rbenv init
+```
+
+Clone [ruby-build](https://github.com/rbenv/ruby-build) (installation plugin for **rbenv**) with:
+```
+git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
+```
+
+*Optional: Upgrade **ruby-build** with:
+```
+git -C "$(rbenv root)"/plugins/ruby-build pull
+```
+
+Add the following line to the .bashrc file:
+```
+alias rbenv="$HOME/.rbenv/bin/rbenv"
+```
+
+Run the following to load the changes just made to the .bashrc file.
+```
+source /home/${USER}/.bashrc
+```
+
+### Install Ruby
+
+Check list of Ruby versions available with:
+```
+rbenv install -l
+```
+
+Install a given version of Ruby from the previous step with:
+```
+rbenv install <version_number>
+```
+
+Example: `rbenv install 3.4.3`
+
+Set the global default based on the output of the installation:
+```
+rbenv global <version_number>
+```
+
+Example: `rbenv global 3.4.3`
+
+Open new window for terminal, then verify that installation worked with the expected version:
+```
+ruby -v
+```
+
+### Install Ruby gems
+Ruby dependencies (aka **gems**) can be install wtih the following command:
+
+```
+gem install <gem_name>
+```
