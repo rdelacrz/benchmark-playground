@@ -3,6 +3,8 @@
 class Benchmarker
   NANO_PER_MILLI = 1_000_000
 
+  attr_accessor :operation_name
+  
   def initialize(operation_name)
     @operation_name = operation_name
   end

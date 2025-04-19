@@ -18,7 +18,7 @@ def help(msg = nil)
   exit 1
 end
 
-def parse_options
+def parse_options(benchmarker_manager)
   options = { count: 1000 }
   OptionParser.new do |parser|
     parser.on('-o', '--operation OPERATION', 'The operation to be benchmarked.')
@@ -31,12 +31,15 @@ def parse_options
   end.order!(into: options)
 
   # Validates CLI options
-  if !%w[QuickSort].include?(options[:operation])
-    help "Operation name '#{options[:operation]}' is invalid. Operation must be one of the following: QuickSort"
+  operation = options[:operation]
+  help "No operation was passed! Operation must be one of the following: #{benchmarker_manager.valid_operations}" if operation.nil?
+  if benchmarker_manager.benchmarker_map[operation].nil? then
+    help "Operation name '#{operation}' not valid. Operation must be one of the following: #{benchmarker_manager.valid_operations}"
   end
 
-  help 'No inputfile was passed!' if options[:inputfile].nil?
-  help "Given input file '#{options[:inputfile]}' does not exist!" if !File.exist? options[:inputfile]
+  input_file = options[:inputfile]
+  help 'No inputfile was passed!' if input_file.nil?
+  help "Given input file '#{input_file}' does not exist!" if !File.exist? input_file
 
   help "Given count '#{options[:count]}' is not a valid integer greater than 0!" if options[:count] <= 0
 
