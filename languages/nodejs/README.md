@@ -1,10 +1,10 @@
-# node_benchmark_runner
+# Node Benchmark Runner
 
 The following subpackage runs benchmarks using code written in [Node](https://nodejs.org/en).
 
 ## Prerequisites
 
-Several software must be installed in order to run **node_benchmark_runner**. The following instructions will assume that the operating system hosting this application is Ubuntu.
+Several software must be installed in order to run **Node Benchmark Runner**. The following instructions will assume that the operating system hosting this application is Ubuntu.
 
 Before installing anything, it is recommended that you run the following:
 ```

@@ -1,10 +1,10 @@
-# ruby_benchmark_runner
+# Ruby Benchmark Runner
 
 The following subpackage runs benchmarks using code written in [Ruby](https://www.ruby-lang.org/en/).
 
 ## Prerequisites
 
-Several software must be installed in order to run **ruby_benchmark_runner**. The following instructions will assume that the operating system hosting this application is Ubuntu.
+Several software must be installed in order to run **Ruby Benchmark Runner**. The following instructions will assume that the operating system hosting this application is Ubuntu.
 
 Before installing anything, it is recommended that you run the following to update the system packages on Ubuntu:
 ```

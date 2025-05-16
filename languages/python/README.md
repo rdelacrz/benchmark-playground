@@ -1,10 +1,10 @@
-# python_benchmark_runner
+# Python Benchmark Runner
 
 The following subpackage runs benchmarks using code written in **Python**. Assuming that the operating system hosting this application is Ubuntu, [Python](https://www.python.org/downloads/) should already come preinstalled in it.
 
 ## Prerequisites
 
-Several software must be installed in order to run **python_benchmark_runner**. The following instructions will assume that the operating system hosting this application is Ubuntu.
+Several software must be installed in order to run **Python Benchmark Runner**. The following instructions will assume that the operating system hosting this application is Ubuntu.
 
 Install `venv` via this command (note that you can replace the version number for Python with whatever is applicable for your Python installation):
 ```
@@ -33,7 +33,7 @@ Alternatively, if you are updating the third party dependencies to install in th
 pip freeze > requirements.txt
 ```
 
-## Running python_benchmark_runner
+## Running Python Benchmark Runner
 
 This command will run the Python main.py, passing any CLI parameters directly to the executable.
 ```
