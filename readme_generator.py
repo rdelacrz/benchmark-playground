@@ -16,7 +16,7 @@ OPERATION_CONFIGS = {
         '-c': '1000',
     },
 }
-CLI_OUTPUT_PATTERN = re.compile(r"\w+'s \w+ execution time \(over \d+ loops\): (.+)")
+CLI_OUTPUT_PATTERN = re.compile(r".+'s \w+ execution time \(over \d+ loops\): (.+)")
 README_FILENAME = os.path.abspath("README.md")
 
 def _get_readme_template(template_path="templates/README_TEMPLATE.md"):
