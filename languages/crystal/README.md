@@ -1,6 +1,6 @@
 # Crystal Benchmark Runner
 
-The following subpackage runs benchmarks using code written in **Crystal**.
+The following subpackage runs benchmarks using code written in **Crystal**, which is a compiled language with Ruby-inspired syntax. More information about it can be read [here](https://crystal-lang.org).
 
 ## Prerequisites
 
