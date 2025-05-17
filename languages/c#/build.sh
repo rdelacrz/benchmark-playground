@@ -19,8 +19,8 @@ done
 # Run the appropriate cmake command based on the flags
 if [ $release == true ]; then
   echo "Configuring for Release build..."
-  dotnet publish -p:PublishSingleFile=true --self-contained true -c Release -o ./bin/Release/out
+  dotnet publish -p:PublishSingleFile=true --self-contained true -c Release -o ./bin/Release/out ./src
 else
   echo "Configuring for Debug build..."
-  dotnet publish -p:PublishSingleFile=true --self-contained true -c Debug -o ./bin/Debug/out
+  dotnet publish -p:PublishSingleFile=true --self-contained true -c Debug -o ./bin/Debug/out ./src
 fi
