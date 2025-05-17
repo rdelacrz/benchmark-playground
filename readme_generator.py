@@ -134,7 +134,7 @@ def write_readme_file():
         count = OPERATION_CONFIGS[operation]["-c"]
         benchmark_list.append(f"### {operation} ({len(language_time_pairs)} implementions)")
         benchmark_list.append(f"Language | Benchmark Time ({count} executions)")
-        benchmark_list.append("--- | ---")
+        benchmark_list.append("-- | -:")
         for language, benchmark_time in language_time_pairs:
             benchmark_list.append(f"{language} | {benchmark_time}")
         benchmark_list.append('\n')
