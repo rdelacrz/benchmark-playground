@@ -130,12 +130,13 @@ def write_readme_file():
     # Generates benchmark tables for each operation
     benchmark_list: list[str] = []
     for operation, language_map in _parse_run_cli_output().items():
+        language_time_pairs = list(language_map.items())
         count = OPERATION_CONFIGS[operation]["-c"]
-        benchmark_list.append("### {}".format(operation))
-        benchmark_list.append("Language | Benchmark Time ({} executions)".format(count))
+        benchmark_list.append(f"### {operation} ({len(language_time_pairs)} implementions)")
+        benchmark_list.append(f"Language | Benchmark Time ({count} executions)")
         benchmark_list.append("--- | ---")
-        for language, benchmark_time in language_map.items():
-            benchmark_list.append("{} | {}".format(language, benchmark_time))
+        for language, benchmark_time in language_time_pairs:
+            benchmark_list.append(f"{language} | {benchmark_time}")
         benchmark_list.append('\n')
 
     # Renders template
