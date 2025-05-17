@@ -8,7 +8,7 @@ This is a passion project that seeks to benchmark various algorithms using diffe
 Benchmarking infrastructure has been set up using the following languages so far:
 
 * [C](https://github.com/rdelacrz/benchmark-playground/tree/main/languages/c)
-* [C#](https://github.com/rdelacrz/benchmark-playground/tree/main/languages/c#)
+* [C#](https://github.com/rdelacrz/benchmark-playground/tree/main/languages/c%23)
 * [Crystal](https://github.com/rdelacrz/benchmark-playground/tree/main/languages/crystal)
 * [Go](https://github.com/rdelacrz/benchmark-playground/tree/main/languages/go)
 * [Java](https://github.com/rdelacrz/benchmark-playground/tree/main/languages/java)
@@ -29,14 +29,14 @@ python3 readme_generator.py
 ### QuickSort (10 implementions)
 Language | Benchmark Time (1000 executions)
 -- | -:
-c | 83.301400 ms
-c# | 642.291900 ms
-crystal | 119.547976 ms
-go | 116.128211 ms
-java | 190.010453 ms
-nodejs | 280.396043 ms
-python | 1070.959091 ms
-ruby | 1961.460654 ms
-rust | 97.393439 ms
-zig | 89.394940 ms
+c | 82.543800 ms
+c# | 670.182000 ms
+crystal | 119.545377 ms
+go | 115.385575 ms
+java | 192.665723 ms
+nodejs | 243.815857 ms
+python | 1017.948389 ms
+ruby | 2146.837977 ms
+rust | 97.587667 ms
+zig | 88.661157 ms
 

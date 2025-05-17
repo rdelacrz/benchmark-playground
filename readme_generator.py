@@ -6,6 +6,7 @@ be runnable by any version of Python that supports the Template class.
 
 import os
 import re
+from urllib.parse import quote
 from string import Template
 from subprocess import Popen, PIPE
 
@@ -124,7 +125,7 @@ def write_readme_file():
     for language in _get_available_languages():
         formatted_language_name = _format_language_name(language)
         language_link_list.append("* [{}](https://github.com/rdelacrz/benchmark-playground/tree/main/languages/{})".format(
-            formatted_language_name, language)
+            formatted_language_name, quote(language))
         )
 
     # Generates benchmark tables for each operation
