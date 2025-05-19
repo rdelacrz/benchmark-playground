@@ -11,6 +11,7 @@ Benchmarking infrastructure has been set up using the following languages so far
 * [C#](https://github.com/rdelacrz/benchmark-playground/tree/main/languages/c%23)
 * [Crystal](https://github.com/rdelacrz/benchmark-playground/tree/main/languages/crystal)
 * [Go](https://github.com/rdelacrz/benchmark-playground/tree/main/languages/go)
+* [Haskell](https://github.com/rdelacrz/benchmark-playground/tree/main/languages/haskell)
 * [Java](https://github.com/rdelacrz/benchmark-playground/tree/main/languages/java)
 * [NodeJs](https://github.com/rdelacrz/benchmark-playground/tree/main/languages/nodejs)
 * [Python](https://github.com/rdelacrz/benchmark-playground/tree/main/languages/python)
@@ -26,17 +27,18 @@ The following tables contains the most recent benchmark data for each operation 
 python3 readme_generator.py
 ```
 
-### QuickSort (10 implementions)
+### QuickSort (11 implementions)
 Language | Benchmark Time (1000 executions)
 -- | -:
-c | 82.543800 ms
-c# | 670.182000 ms
-crystal | 119.545377 ms
-go | 115.385575 ms
-java | 192.665723 ms
-nodejs | 243.815857 ms
-python | 1017.948389 ms
-ruby | 2146.837977 ms
-rust | 97.587667 ms
-zig | 88.661157 ms
+c | 80.773100 ms
+c# | 715.976300 ms
+crystal | 151.245229 ms
+go | 121.283533 ms
+haskell | 92.767640 ms
+java | 199.515906 ms
+nodejs | 287.210045 ms
+python | 1137.303114 ms
+ruby | 2247.460821 ms
+rust | 100.480507 ms
+zig | 91.707409 ms
 
