@@ -4,10 +4,10 @@ module Operations.QuickSort where
 partition' :: (Ord a) => a -> [a] -> ([a], [a])
 partition' pivot [] = ([], [])
 partition' pivot (x:xs)
-    | x < pivot  = (x : less, greater)
-    | otherwise  = (less, x : greater)
-  where
-    (less, greater) = partition' pivot xs
+        | x < pivot  = (x : less, greater)
+        | otherwise  = (less, x : greater)
+    where
+        (less, greater) = partition' pivot xs
 
 -- QuickSort function using the partition function
 quickSort :: (Ord a) => [a] -> [a]

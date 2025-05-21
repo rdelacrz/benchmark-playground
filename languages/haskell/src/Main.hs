@@ -1,8 +1,7 @@
-{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
-{-# HLINT ignore "Use replicateM_" #-}
 module Main where
 
-import Benchmarkers.QuickSortBenchmarker (benchmarkQuickSort, readJsonStringList)
+import Benchmarkers.QuickSortBenchmarker (benchmarkQuickSort)
+import Utils.File (readJsonStringList)
 
 import Data.Maybe (fromMaybe)
 import Options.Applicative

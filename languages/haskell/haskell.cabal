@@ -67,6 +67,7 @@ executable haskell
     other-modules:
         Benchmarkers.QuickSortBenchmarker
         Operations.QuickSort
+        Utils.File
         Utils.Time
 
     -- LANGUAGE extensions used by modules in this package.
@@ -85,4 +86,15 @@ executable haskell
     hs-source-dirs:   src
 
     -- Base language which the package is written in.
+    default-language: Haskell2010
+
+test-suite test-operations
+    type:           exitcode-stdio-1.0
+    main-is:        TestMain.hs
+    hs-source-dirs: src, tests
+    build-depends:  base ^>=4.18.3.0,
+                    HUnit >= 1.6.2.0
+    other-modules:
+        Operations.QuickSort
+        TestQuickSort
     default-language: Haskell2010
