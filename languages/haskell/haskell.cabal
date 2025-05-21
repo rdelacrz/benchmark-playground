@@ -65,7 +65,9 @@ executable haskell
 
     -- Modules included in this executable, other than Main.
     other-modules:
+        Benchmarkers.QuickSortBenchmarker
         Operations.QuickSort
+        Utils.Time
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
@@ -74,8 +76,8 @@ executable haskell
     build-depends:    base ^>=4.18.3.0,
                       aeson >=2.2.3.0,
                       bytestring >= 0.11.5.4,
-                      criterion >=1.6.4.0,
                       deepseq >= 1.4.8.1,
+                      optparse-applicative >= 0.18.1,
                       text >= 2.0.2,
                       time >= 1.12
 
