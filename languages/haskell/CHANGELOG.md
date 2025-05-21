@@ -1,5 +1,5 @@
 # Revision history for haskell
 
-## 0.1.0.0 -- YYYY-mm-dd
+## 0.1.0.0 -- 2025-05-21
 
-* First version. Released on an unsuspecting world.
+* First version. Initial Haskell benchmarking with QuickSort operation integrated. Includes unit testing.
