@@ -28,18 +28,19 @@ The following tables contains the most recent benchmark data for each operation 
 python3 readme_generator.py
 ```
 
-### QuickSort (11 implementions)
+### QuickSort (12 implementions)
 Language | Benchmark Time (1000 executions)
 -- | -:
-c | 79.202800 ms
-c# | 623.789200 ms
-crystal | 116.839940 ms
-go | 110.152943 ms
-haskell | 86.684913 ms
-java | 193.437554 ms
-nodejs | 238.204588 ms
-python | 1163.375139 ms
-ruby | 2051.661945 ms
-rust | 95.097863 ms
-zig | 85.084715 ms
+c | 80.104000 ms
+c# | 687.740500 ms
+c++ | 96.621562 ms
+crystal | 123.024250 ms
+go | 116.701450 ms
+haskell | 90.593063 ms
+java | 211.307115 ms
+nodejs | 259.745598 ms
+python | 1063.363314 ms
+ruby | 2088.429849 ms
+rust | 99.107018 ms
+zig | 91.093926 ms
 

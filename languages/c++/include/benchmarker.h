@@ -59,7 +59,7 @@ namespace benchmarker {
                 vector<long> executionTimes = getOperationExecutionResults(executionCount);
                 long totalDuration = accumulate(executionTimes.begin(), executionTimes.end(), 0);
                 double elapsedMilliseconds = static_cast<double>(totalDuration) / NANO_TO_MILLI;
-                cout << "C++'s " << operationName << " execution time (over " << executionCount << " loops) = " 
+                cout << "C++'s " << operationName << " execution time (over " << executionCount << " loops): " 
                     << fixed << setprecision(6) << elapsedMilliseconds << " ms" << endl;
             }
 
