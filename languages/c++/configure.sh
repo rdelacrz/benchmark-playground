@@ -4,7 +4,7 @@
 release=true
 
 # Parse command line arguments
-while getopts "rd" opt; do
+while getopts "d" opt; do
   case $opt in
     d)
       release=false
@@ -18,11 +18,9 @@ done
 
 # Run the appropriate cmake command based on the flags
 if [ $release == true ]; then
-  echo "Building Release target..."
-  mkdir -p ./target/release
-  cmake --build target/release
+  echo "Configuring for Release build..."
+  CC=clang cmake -G Ninja -S . -B target/release -D CMAKE_BUILD_TYPE=Release
 else
-  echo "Building Debug target..."
-  mkdir -p ./target/debug
-  cmake --build target/debug
+  echo "Configuring for Debug build..."
+  CC=clang cmake -G Ninja -S . -B target/debug -D CMAKE_BUILD_TYPE=Debug
 fi
