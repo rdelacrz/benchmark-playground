@@ -20,7 +20,22 @@ add_executable(${PROJECT_NAME} ${SOURCES})
 
 
 ###############################
+### Unit Testing Setup
+###############################
+
+set(TEST_EXECUTABLE ${PROJECT_NAME}_test)
+
+file(GLOB_RECURSE OPERATION_SOURCES "src/operations/*.cpp")    # Recursively find all .cpp files in operations
+file(GLOB_RECURSE TEST_SOURCES "test/*.cpp")    # Recursively find all .cpp files in test
+add_executable(${TEST_EXECUTABLE} ${OPERATION_SOURCES} ${TEST_SOURCES})
+
+
+###############################
 ### Library Dependencies
 ###############################
 
 find_package(RapidJSON)
+
+find_package(doctest)
+target_compile_features(${TEST_EXECUTABLE} PRIVATE cxx_std_26)
+target_link_libraries(${TEST_EXECUTABLE} PRIVATE doctest::doctest)

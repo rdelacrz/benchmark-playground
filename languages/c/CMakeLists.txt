@@ -25,7 +25,7 @@ add_executable(${PROJECT_NAME} ${SOURCES})
 
 set(TEST_EXECUTABLE ${PROJECT_NAME}_test)
 
-file(GLOB_RECURSE OPERATION_SOURCES "src/operations/*.c")    # Recursively find all .c files in test
+file(GLOB_RECURSE OPERATION_SOURCES "src/operations/*.c")    # Recursively find all .c files in operations
 file(GLOB_RECURSE TEST_SOURCES "test/*.c")    # Recursively find all .c files in test
 add_executable(${TEST_EXECUTABLE} ${OPERATION_SOURCES} ${TEST_SOURCES})
 

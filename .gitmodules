@@ -7,3 +7,6 @@
 [submodule "languages/c++/extern/rapidjson"]
 	path = languages/c++/extern/rapidjson
 	url = https://github.com/Tencent/rapidjson
+[submodule "languages/c++/extern/doctest"]
+	path = languages/c++/extern/doctest
+	url = https://github.com/doctest/doctest
