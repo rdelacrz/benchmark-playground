@@ -5,7 +5,7 @@
 #include <cstring>
 
 #include "benchmarker.h"
-#include "quick_sort_benchmarker.h"
+#include "benchmarker_manager.h"
 #include "string_utils.h"
 
 using namespace benchmarker;
@@ -79,28 +79,17 @@ Arguments parseArgs(int argc, char* argv[]) {
 }
 
 int main(int argc, char* argv[]) {
-    long totalDuration = 0;
-
     Arguments args = parseArgs(argc, argv);
 
-    Benchmarker* benchmarker = nullptr;
-
     // Gets proper benchmarker from list
-    QuickSortBenchmarker quickSortBenchmarker = QuickSortBenchmarker();
-    vector<Benchmarker*> benchmarkers = {
-        &quickSortBenchmarker
-    };
-    for (Benchmarker* benchmarkerPtr : benchmarkers) {
-        if (strcmp(benchmarkerPtr->getOperationName().c_str(), args.operation) == 0) {
-            benchmarker = benchmarkerPtr;
-        }
-    }
+    shared_ptr<Benchmarker> benchmarker = getBenchmarker(args.operation);
 
     // Should not be reached due to prior validation checks, but just to be
     if (benchmarker != nullptr) {
         benchmarker->consumeInputFile(args.inputFile);
         benchmarker->printExecutionResults(args.count);
         benchmarker->cleanUpBenchmarker();
+        benchmarker.reset();    // Cleans up memory related to the shared pointer to the benchmarker
     } else {
         cerr << "Benchmarker could not be properly set!" << endl;
     }
