@@ -82,14 +82,13 @@ int main(int argc, char* argv[]) {
     Arguments args = parseArgs(argc, argv);
 
     // Gets proper benchmarker from list
-    shared_ptr<Benchmarker> benchmarker = getBenchmarker(args.operation);
+    unique_ptr<Benchmarker> benchmarker = getBenchmarker(args.operation);
 
     // Should not be reached due to prior validation checks, but just to be
     if (benchmarker != nullptr) {
         benchmarker->consumeInputFile(args.inputFile);
         benchmarker->printExecutionResults(args.count);
         benchmarker->cleanUpBenchmarker();
-        benchmarker.reset();    // Cleans up memory related to the shared pointer to the benchmarker
     } else {
         cerr << "Benchmarker could not be properly set!" << endl;
     }

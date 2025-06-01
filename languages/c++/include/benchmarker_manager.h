@@ -8,7 +8,7 @@
 using namespace std;
 
 namespace benchmarker {
-    shared_ptr<Benchmarker> getBenchmarker(const char* operationName);
+    unique_ptr<Benchmarker> getBenchmarker(const char* operationName);
 }
 
 #endif
