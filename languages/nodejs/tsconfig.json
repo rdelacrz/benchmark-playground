@@ -3,13 +3,14 @@
     "target": "ESNext",
     "module": "NodeNext",
     "moduleResolution": "nodenext",
-    "baseUrl": "./",
     "paths": {
-      "@benchmarkers/*": ["src/benchmarkers/*"],
-      "@operations/*": ["src/operations/*"],
-      "@utils/*": ["src/utils/*"]
+      "@benchmarkers/*": ["./src/benchmarkers/*"],
+      "@operations/*": ["./src/operations/*"],
+      "@utils/*": ["./src/utils/*"]
     },
+    "types": ["node"],
     "resolveJsonModule": true,
+    "rootDir": "./src",
     "outDir": "./dist",
     "removeComments": true,
     "isolatedModules": true,

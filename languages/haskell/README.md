@@ -4,19 +4,25 @@ The following subpackage runs benchmarks using code written in **Haskell**, a pu
 
 ## Prerequisites
 
-Developing with [Haskell](https://www.haskell.org) requires [GHCup](https://www.haskell.org/ghcup) to install and manage the Haskell toolchain. The following instructions will assume that the operating system hosting this application is Ubuntu.
+Use GHC 9.10.3 and `cabal` on Ubuntu. If `ghc --numeric-version` already prints `9.10.3` and `cabal --version` works, skip installation and go straight to the build.
 
-### Installing the GHCup Installer
+For a fresh install, run the official [GHCup](https://www.haskell.org/ghcup/) installer as your normal user:
 
-**GHCup** is the main installer for Haskell. It can be installed on Linux with the following command.
-
-```
+```sh
 curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
+```
+
+Open a new terminal so the GHCup tools are on your `PATH`, then install and select the compiler and update Cabal's package index:
+
+```sh
+ghcup install ghc 9.10.3
+ghcup set ghc 9.10.3
+cabal update
 ```
 
 ## Building Haskell Benchmark Runner
 
-This command will build **Haskell Benchmark Runner** using **Haskell**'s `build` command. If the optional `-d` flag is passed as well (i.e. `./build.sh -d`), it will generate the debug version of the build.
+From `languages/haskell`, build the runner with Cabal (`./build.sh -d` for a debug build):
 ```
 ./build.sh
 ```

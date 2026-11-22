@@ -41,6 +41,13 @@ nvm install node
 npm install --global yarn
 ```
 
+### Installing Typescript
+Typescipt must be installed in order to run build. Run the following command:
+
+```
+npm install -g typescript
+```
+
 ## Building NodeJs Benchmark Runner
 
 This command will build **NodeJs Benchmark Runner**.
