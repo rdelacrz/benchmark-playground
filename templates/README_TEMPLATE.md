@@ -11,7 +11,7 @@ $language_links
 
 ## Benchmarked Operations
 
-The following tables contains the most recent benchmark data for each operation that has been performed for each programming language in this package. This benchmark can updated by running the following command (assuming Python is installed):
+To refresh the benchmark tables, install the toolchains and dependencies listed in each language's README, then run this command from the repository root. The generator runs each available `build.sh` before benchmarking.
 
 ```
 python3 readme_generator.py

@@ -1,4 +1,4 @@
 #!/bin/bash
 
 # Example: ./run.sh -i ../../inputs/random_string_list.json -o QuickSort -c 1000
-bundle exec ruby lib/main.rb "$@"
+exec ruby -rbundler/setup lib/main.rb "$@"

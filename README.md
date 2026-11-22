@@ -22,7 +22,7 @@ Benchmarking infrastructure has been set up using the following languages so far
 
 ## Benchmarked Operations
 
-The following tables contains the most recent benchmark data for each operation that has been performed for each programming language in this package. This benchmark can updated by running the following command (assuming Python is installed):
+To refresh the benchmark tables, install the toolchains and dependencies listed in each language's README, then run this command from the repository root. The generator runs each available `build.sh` before benchmarking.
 
 ```
 python3 readme_generator.py
@@ -31,16 +31,16 @@ python3 readme_generator.py
 ### QuickSort (12 implementions)
 Language | Benchmark Time (1000 executions)
 -- | -:
-c | 79.145200 ms
-c# | 654.649500 ms
-c++ | 95.372532 ms
-crystal | 119.325735 ms
-go | 114.391875 ms
-haskell | 89.653472 ms
-java | 211.297399 ms
-nodejs | 248.819594 ms
-python | 1014.881849 ms
-ruby | 2158.604635 ms
-rust | 101.370519 ms
-zig | 90.941575 ms
+c | 16.027902 ms
+c# | 320.180800 ms
+c++ | 60.584594 ms
+crystal | 33.750671 ms
+go | 46.209301 ms
+haskell | 26.133170 ms
+java | 42.909983 ms
+nodejs | 66.639896 ms
+python | 339.01763 ms
+ruby | 872.713691 ms
+rust | 19.394790 ms
+zig | 11.844725 ms
 

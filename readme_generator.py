@@ -8,7 +8,7 @@ import os
 import re
 from urllib.parse import quote
 from string import Template
-from subprocess import Popen, PIPE
+from subprocess import run
 
 DEFAULT_LANGUAGES_DIR = "languages"
 OPERATION_CONFIGS = {
@@ -89,24 +89,31 @@ def _parse_run_cli_output(language_dir=DEFAULT_LANGUAGES_DIR):
         dict: A multi-level dictionary mapping operation -> language -> benchmark time.
     """
     
+    languages = _get_run_file_per_language(language_dir)
+    for language_name, run_path, _ in languages:
+        if os.path.isfile(os.path.join(run_path, 'build.sh')):
+            build = run(['./build.sh'], cwd=run_path)
+            if build.returncode:
+                raise RuntimeError(f"Build failed for {language_name} (exit {build.returncode})")
+
     cli_output_map: dict[str, dict[str, str]] = {}
     for operation, args in OPERATION_CONFIGS.items():
         cli_output_map[operation] = {}
-        for language_name, run_path, run_file in _get_run_file_per_language(language_dir):
-            os.chdir(run_path)  # Changes directory to language directory, so that run file can be executed from there
-            process = Popen(["./" + run_file, '-o', operation, '-i', args['-i'], '-c', args['-c']], stdout=PIPE, stderr=PIPE)
-            stdout, stderr = process.communicate()
+        for language_name, run_path, run_file in languages:
+            process = run(
+                ["./" + run_file, '-o', operation, '-i', args['-i'], '-c', args['-c']],
+                cwd=run_path, capture_output=True, text=True,
+            )
 
-            # Exits application on error
             formatted_language_name = _format_language_name(language_name)
-            if stderr:
-                error_msg = "An error occurred while attempting to run {} for the language {}:\n\t{}".format(
-                    operation, formatted_language_name, stderr
+            if process.returncode:
+                raise RuntimeError(
+                    f"{formatted_language_name} failed to run {operation} (exit {process.returncode}):\n"
+                    f"{process.stderr.strip() or process.stdout.strip()}"
                 )
-                raise Exception(error_msg)
 
-            cli_output = stdout.decode('utf-8')
-            pattern_match = CLI_OUTPUT_PATTERN.match(cli_output)
+            cli_output = process.stdout
+            pattern_match = CLI_OUTPUT_PATTERN.search(cli_output)
 
             if not pattern_match:
                 print("WARNING: {} CLI output for the {} operation could not be parsed properly! CLI output: {}".format(
