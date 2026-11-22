@@ -2,4 +2,6 @@
 
 source "https://rubygems.org"
 
+gem 'colorator'
 gem 'optparse'
+gem 'rspec', group: :test
