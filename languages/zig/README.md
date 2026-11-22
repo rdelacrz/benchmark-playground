@@ -2,17 +2,24 @@
 
 ## Prerequisites
 
-The Zig compiler must be installed in order to run **Zig Benchmark Runner**. Make sure the you have all the Host System Dependencies defined [here](https://github.com/ziglang/zig-bootstrap?tab=readme-ov-file#host-system-dependencies) installed.
+Use **Zig 0.14.1** to build this benchmark. Zig 0.17.1 is incompatible with the build scripts used by this project and its `zig-clap` 0.10.0 dependency.
 
 ### Zig Compiler Installation
 
-Install Zig using [Snapd](https://snapcraft.io/install/zig/ubuntu#install).
+Use [mise](https://mise.jdx.dev/) to install the benchmark's compiler alongside your existing Zig installation:
+
+```sh
+mise install zig@0.14.1
+mise exec zig@0.14.1 -- zig version  # should print 0.14.1
+```
+
+Alternatively, download the 0.14.1 archive for your platform from the [official Zig downloads](https://ziglang.org/download/), extract it, and put the extracted directory first on `PATH`. Check that `zig version` prints `0.14.1` before running `./build.sh` directly.
 
 ## Building Zig Benchmark Runner
 
 This command will build **Zig Benchmark Runner** using the Zig compiler's `build` command. If the optional `-d` flag is passed as well (i.e. `./build.sh -d`), it will generate the debug version of the build, which when run will be slower than the release version, but displays more debug messages for troubleshooting issues.
-```
-./build.sh
+```sh
+mise exec zig@0.14.1 -- ./build.sh
 ```
 
 ## Running Zig Benchmark Runner
