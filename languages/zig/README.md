@@ -17,9 +17,10 @@ Alternatively, download the 0.14.1 archive for your platform from the [official 
 
 ## Building Zig Benchmark Runner
 
-This command will build **Zig Benchmark Runner** using the Zig compiler's `build` command. If the optional `-d` flag is passed as well (i.e. `./build.sh -d`), it will generate the debug version of the build, which when run will be slower than the release version, but displays more debug messages for troubleshooting issues.
+Run `./build.sh` for a release build or `./build.sh -d` for a debug build. The script uses Zig 0.14.1 from `PATH` if available; otherwise it runs that version through `mise` without changing your default compiler.
+
 ```sh
-mise exec zig@0.14.1 -- ./build.sh
+./build.sh
 ```
 
 ## Running Zig Benchmark Runner
