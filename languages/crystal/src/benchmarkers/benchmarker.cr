@@ -11,11 +11,11 @@ class Benchmarker
   def consume_file_input(input_file_path : String)
     raise NotImplementedError.new("Expected to be implemented by child class!")
   end
-  
+
   def get_operation_execution_time(&)
-    start_time = Time.monotonic
+    start_time = Time.instant
     yield
-    end_time = Time.monotonic
+    end_time = Time.instant
 
     (end_time - start_time).nanoseconds
   end
