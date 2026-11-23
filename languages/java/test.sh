@@ -1,3 +1,3 @@
 #!/bin/bash
 
-gradle --rerun-tasks test
+./gradlew --rerun-tasks test

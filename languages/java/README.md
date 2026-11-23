@@ -23,26 +23,7 @@ With the command provided below, verify that the installation was successful:
 java -version
 ```
 
-### Install SDKMAN
-
-Install `zip` and `unzip` which is a prerequisite for `SDKMAN`.
-```
-sudo apt install zip
-sudo apt install unzip
-```
-
-Afterwards, run the following to install [SDKMAN](https://sdkman.io/):
-```
-curl -s "https://get.sdkman.io" | bash
-```
-
-### Install Gradle
-
-[Gradle](https://gradle.org/) is the build system that will be used to manage this Java application. Install **Gradle** with the following command:
-
-```
-sdk install gradle 8.13
-```
+The Gradle wrapper downloads the pinned Gradle release on first use. No system Gradle installation is required.
 
 ## Building Java Benchmark Runner
 

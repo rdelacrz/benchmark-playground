@@ -1,3 +1,3 @@
 #!/bin/bash
 
-(cd app && gradle installDist)
+./gradlew :app:installDist
