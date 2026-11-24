@@ -10,18 +10,18 @@ public final class QuickSort {
     }
 
     private static <T extends Comparable<T>> int partition(List<T> arr, int low, int high) {
-        int pivot = high;   // Last element is pivot
+        T pivot = arr.get(high);   // Last element is pivot
         int i = low - 1;    // Index of smaller element
 
         for (int j = low; j < high; j++) {
-            if (arr.get(j).compareTo(arr.get(pivot)) < 0) {
+            if (arr.get(j).compareTo(pivot) < 0) {
                 i++;
                 swap(arr, i, j);
             }
         }
 
         i++;
-        swap(arr, i, pivot);
+        swap(arr, i, high);
         return i;
     }
 

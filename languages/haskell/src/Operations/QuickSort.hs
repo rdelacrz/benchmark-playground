@@ -11,7 +11,9 @@ partition' pivot (x:xs)
 
 -- QuickSort function using the partition function
 quickSort :: (Ord a) => [a] -> [a]
-quickSort [] = []
-quickSort (pivot:xs) =
-    let (less, greater) = partition' pivot xs
-    in quickSort less ++ [pivot] ++ quickSort greater
+quickSort xs = go xs []
+  where
+    go [] rest = rest
+    go (pivot:ys) rest =
+        let (less, greater) = partition' pivot ys
+        in go less (pivot : go greater rest)

@@ -9,7 +9,7 @@ func partition[T utils.Comparable[T]](arr []T) int {
 	pivot := len - 1
 	storeIndex := 0
 
-	for i := range len {
+	for i := range pivot {
 		if arr[i].CompareTo(arr[pivot]) < 0 {
 			arr[i], arr[storeIndex] = arr[storeIndex], arr[i]
 			storeIndex++

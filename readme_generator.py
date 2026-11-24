@@ -6,9 +6,9 @@ be runnable by any version of Python that supports the Template class.
 
 import os
 import re
-from urllib.parse import quote
 from string import Template
 from subprocess import run
+from urllib.parse import quote
 
 DEFAULT_LANGUAGES_DIR = "languages"
 OPERATION_CONFIGS = {
@@ -23,7 +23,7 @@ README_FILENAME = os.path.abspath("README.md")
 def _get_readme_template(template_path="templates/README_TEMPLATE.md"):
     with open(template_path, 'r') as f:
         return f.read()
-    
+
 def _format_language_name(language_name: str):
     """
     Formats the language name so that it is displayed in its proper form.
@@ -31,7 +31,7 @@ def _format_language_name(language_name: str):
     Args:
         language_name (str): Name of language being re-formatted.
 
-    Returns: 
+    Returns:
         str: Formatted language names.
     """
 
@@ -40,7 +40,7 @@ def _format_language_name(language_name: str):
             return "NodeJs"
         case _:
             return language_name.title()
-    
+
 def _get_run_file_per_language(language_dir=DEFAULT_LANGUAGES_DIR, run_file="run.sh"):
     """
     Gets a list of tuples for each available programming language with a run.sh file.
@@ -49,10 +49,10 @@ def _get_run_file_per_language(language_dir=DEFAULT_LANGUAGES_DIR, run_file="run
         language_dir (str): Directory path where programming language folders are located.
         run_file (str): Name of shell file that runs benchmarker.
 
-    Returns: 
+    Returns:
         list[tuple[str, str, str]]: A list of tuples (language name, absolute run file path, run file name).
     """
-    available_languages: list[tuple[str, str]] = []
+    available_languages: list[tuple[str, str, str]] = []
 
     # Sorts language names first
     language_names = os.listdir(language_dir)
@@ -62,9 +62,9 @@ def _get_run_file_per_language(language_dir=DEFAULT_LANGUAGES_DIR, run_file="run
         abs_run_path = os.path.abspath(os.path.join(language_dir, language_name))
         if os.path.isfile(os.path.join(abs_run_path, run_file)):
             available_languages.append((language_name, abs_run_path, run_file))
-    
+
     return available_languages
-    
+
 def _get_available_languages(language_dir=DEFAULT_LANGUAGES_DIR):
     """
     Iterate through all available programming languages with implemented benchmarkers.
@@ -88,7 +88,7 @@ def _parse_run_cli_output(language_dir=DEFAULT_LANGUAGES_DIR):
     Returns:
         dict: A multi-level dictionary mapping operation -> language -> benchmark time.
     """
-    
+
     languages = _get_run_file_per_language(language_dir)
     for language_name, run_path, _ in languages:
         if os.path.isfile(os.path.join(run_path, 'build.sh')):
@@ -116,14 +116,12 @@ def _parse_run_cli_output(language_dir=DEFAULT_LANGUAGES_DIR):
             pattern_match = CLI_OUTPUT_PATTERN.search(cli_output)
 
             if not pattern_match:
-                print("WARNING: {} CLI output for the {} operation could not be parsed properly! CLI output: {}".format(
-                    formatted_language_name, operation, cli_output
-                ))
+                print(f"WARNING: {formatted_language_name} CLI output for the {operation} operation could not be parsed properly! CLI output: {cli_output}")
             else:
                 cli_output_map[operation][language_name] = pattern_match.group(1)
 
     return cli_output_map
-    
+
 def write_readme_file():
     template_content = _get_readme_template()
 
@@ -131,9 +129,8 @@ def write_readme_file():
     language_link_list: list[str] = []
     for language in _get_available_languages():
         formatted_language_name = _format_language_name(language)
-        language_link_list.append("* [{}](https://github.com/rdelacrz/benchmark-playground/tree/main/languages/{})".format(
-            formatted_language_name, quote(language))
-        )
+        quoted = quote(language)
+        language_link_list.append(f"* [{formatted_language_name}](https://github.com/rdelacrz/benchmark-playground/tree/main/languages/{quoted})")
 
     # Generates benchmark tables for each operation
     benchmark_list: list[str] = []

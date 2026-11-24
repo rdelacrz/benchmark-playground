@@ -9,18 +9,18 @@ function swap<T>(arr: Comparable<T>[], i: number, j: number) {
 }
 
 function partition<T>(arr: Comparable<T>[], low: number, high: number): number {
-    const pivot = high;     // Last element is pivot
+    const pivot = arr[high]; // Last element is pivot
     let i = low - 1;        // Index of smaller element
 
     for (let j = low; j < high; j++) {
-        if (arr[j].compareTo(arr[pivot]) < 0) {
+        if (arr[j].compareTo(pivot) < 0) {
             i++;
             swap(arr, i, j);
         }
     }
 
     i++;
-    swap(arr, i, pivot);
+    swap(arr, i, high);
     return i;
 }
 

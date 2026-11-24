@@ -6,18 +6,18 @@ module QuickSortOperation
   end
 
   private_class_method def self.partition(arr, low, high)
-    pivot = high
+    pivot = arr[high]
     i = low - 1
   
-    for j in low..high
-      if (arr[j] <=> arr[pivot]) < 0 then
+    for j in low...high
+      if (arr[j] <=> pivot) < 0 then
         i += 1
         arr[i], arr[j] = arr[j], arr[i]
       end
     end
   
     i += 1
-    arr[i], arr[pivot] = arr[pivot], arr[i]
+    arr[i], arr[high] = pivot, arr[i]
   
     i
   end

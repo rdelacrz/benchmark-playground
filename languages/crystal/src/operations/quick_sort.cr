@@ -7,7 +7,7 @@ module QuickSortOperation(T)
     pivot = high
     i = low - 1
 
-    (low..high).each do |j|
+    (low...high).each do |j|
       if arr[j] < arr[pivot]
         i += 1
         arr[i], arr[j] = arr[j], arr[i]
