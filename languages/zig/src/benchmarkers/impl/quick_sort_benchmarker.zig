@@ -26,15 +26,11 @@ pub fn getQuickSortBenchmarker(input_file_path: []const u8) !QuickSortBenchmarke
 fn getOperationExecutionTime(self: QuickSortBenchmarker) anyerror!u64 {
     const allocator = std.heap.page_allocator;
 
-    // Clones the array of strings
-    var cloned_arr = std.ArrayList([]u8).init(allocator);
-    defer cloned_arr.deinit();
-    for (self.context.parsed_arr.value) |item| {
-        _ = try cloned_arr.append(item);
-    }
+    // Sort a copy of the descriptors; the parsed array owns the string bytes.
+    const target_sort = try allocator.dupe([]u8, self.context.parsed_arr.value);
+    defer allocator.free(target_sort);
 
     // Gets the execution time
-    const target_sort = cloned_arr.items;
     const start_time = try std.time.Instant.now();
     _ = quickSort([]u8, target_sort, &compareStrings);
     const end_time = try std.time.Instant.now();

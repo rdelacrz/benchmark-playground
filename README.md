@@ -31,16 +31,16 @@ python3 readme_generator.py
 ### QuickSort (12 implementions)
 Language | Benchmark Time (1000 executions)
 -- | -:
-c | 15.447335 ms
-c# | 323.299400 ms
-c++ | 61.252176 ms
-crystal | 37.640489 ms
-go | 50.711211 ms
-haskell | 295.875401 ms
-java | 29.295228 ms
-nodejs | 65.86186 ms
-python | 327.008486 ms
-ruby | 787.091140 ms
-rust | 19.768528 ms
-zig | 13.026602 ms
+c | 16.133091 ms
+c# | 320.905800 ms
+c++ | 14.470353 ms
+crystal | 35.368232 ms
+go | 46.562246 ms
+haskell | 285.785966 ms
+java | 29.271573 ms
+nodejs | 65.961765 ms
+python | 331.167459 ms
+ruby | 813.508534 ms
+rust | 30.198432 ms
+zig | 12.731154 ms
 

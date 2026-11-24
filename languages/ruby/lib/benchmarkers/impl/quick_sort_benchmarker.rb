@@ -15,7 +15,7 @@ class QuickSortBenchmarker < Benchmarker
   end
 
   def get_operation_execution_time()
-    arr_copy = @unsorted_list.map(&:clone)
+    arr_copy = @unsorted_list.dup
     super() { QuickSortOperation.quick_sort(arr_copy) }
   end
 end

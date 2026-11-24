@@ -20,9 +20,9 @@ done
 if [ $release == true ]; then
   echo "Building Release target..."
   mkdir -p ./target/release
-  cmake --build target/release
+  cmake --build target/release --target c_benchmark_runner
 else
   echo "Building Debug target..."
   mkdir -p ./target/debug
-  cmake --build target/debug
+  cmake --build target/debug --target c_benchmark_runner
 fi

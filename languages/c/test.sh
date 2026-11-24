@@ -1,5 +1,9 @@
 #!/bin/bash
 
-./build.sh      # Runs build before running test cases to make sure that they are up to date
+set -e
 
+if [ ! -f target/release/CMakeCache.txt ]; then
+  ./configure.sh
+fi
+cmake --build target/release --target c_benchmark_runner_test
 ./target/release/c_benchmark_runner_test

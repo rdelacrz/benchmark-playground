@@ -1,5 +1,4 @@
-#include <cstring>
-#include <vector>
+#include <memory>
 
 #include "benchmarker.h"
 #include "quick_sort_benchmarker.h"
@@ -12,36 +11,21 @@ using namespace utils;
 namespace benchmarker {
 
     void* QuickSortBenchmarker::getOperationInput() {
-        size_t size = unsortedList.size();
-
-        QuickSortInputContext* inputContext = new QuickSortInputContext();
-
-        // Allocate memory for each string in unsortedList
-        inputContext->listCopy = new char*[size];
-        for (int j = 0; j < size; j++) {
-            inputContext->listCopy[j] = new char[unsortedList[j].size() + 1]; // +1 for the null terminator
-            strcpy(inputContext->listCopy[j], unsortedList[j].c_str());
+        auto input = make_unique<QuickSortInputContext>();
+        input->reserve(unsortedList.size());
+        for (const string& value : unsortedList) {
+            input->push_back(value.c_str());
         }
-        inputContext->size = size;
-
-        return static_cast<void*>(inputContext);
+        return input.release();
     }
 
     void QuickSortBenchmarker::performOperation(void* inputContext) {
-        QuickSortInputContext* quickSortInputContext = static_cast<QuickSortInputContext*>(inputContext);
-        quickSort(quickSortInputContext->listCopy, quickSortInputContext->size);
+        auto& input = *static_cast<QuickSortInputContext*>(inputContext);
+        quickSort(input.data(), input.size());
     }
 
     void QuickSortBenchmarker::cleanUpInputContext(void* inputContext) {
-        QuickSortInputContext* quickSortInputContext = static_cast<QuickSortInputContext*>(inputContext);
-
-        // Clean up each string in listCopy
-        for (int i = 0; i < quickSortInputContext->size; i++) {
-            delete[] quickSortInputContext->listCopy[i];
-        }
-
-        delete[] quickSortInputContext->listCopy;
-        delete quickSortInputContext;
+        delete static_cast<QuickSortInputContext*>(inputContext);
     }
 
     void QuickSortBenchmarker::consumeInputFile(const char* inputFilePath) {

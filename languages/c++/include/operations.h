@@ -2,7 +2,7 @@
 #define OPERATIONS_H
 
 namespace operations {
-    char** quickSort(char* arr[], int len);
+    const char** quickSort(const char* arr[], int len);
 }
 
 #endif

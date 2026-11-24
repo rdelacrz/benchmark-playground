@@ -40,6 +40,7 @@ namespace benchmarker {
 
         public:
             Benchmarker (string name): operationName(name) { }
+            virtual ~Benchmarker() = default;
 
             virtual void consumeInputFile(const char* inputFilePath) = 0;
 

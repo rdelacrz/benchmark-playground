@@ -6,8 +6,7 @@
 
 using namespace operations;
 
-// Helper function to compare two char** arrays
-bool arraysEqual(char** a, char** b, int size) {
+bool arraysEqual(const char* const* a, const char* const* b, int size) {
     for (int i = 0; i < size; ++i) {
         if (strcmp(a[i], b[i]) != 0) {
             return false;
@@ -17,48 +16,53 @@ bool arraysEqual(char** a, char** b, int size) {
 }
 
 TEST_CASE("QuickSort zero elements") {
-    char *unsorted[] = { };
-    char *expected_result[] = { };
-
-    char **actual_result = quickSort(unsorted, 0);
-
-    CHECK(arraysEqual(actual_result, expected_result, 0));
+    CHECK(quickSort(nullptr, 0) == nullptr);
 }
 
 TEST_CASE("QuickSort single element") {
-    char *unsorted[] = { "badger" };
-    char *expected_result[] = { "badger" };
+    const char* unsorted[] = { "badger" };
+    const char* expected_result[] = { "badger" };
 
-    char **actual_result = quickSort(unsorted, 1);
+    const char** actual_result = quickSort(unsorted, 1);
 
     CHECK(arraysEqual(actual_result, expected_result, 1));
 }
 
 TEST_CASE("QuickSort multiple odd elements") {
-    char *unsorted[] = { "zinc", "trap", "tree", "trait", "badger", "apple", "chemistry", "pig", "zoo" };
-    char *expected_result[] = { "apple", "badger", "chemistry", "pig", "trait", "trap", "tree", "zinc", "zoo" };
+    const char* unsorted[] = { "zinc", "trap", "tree", "trait", "badger", "apple", "chemistry", "pig", "zoo" };
+    const char* expected_result[] = { "apple", "badger", "chemistry", "pig", "trait", "trap", "tree", "zinc", "zoo" };
 
-    char **actual_result = quickSort(unsorted, 9);
+    const char** actual_result = quickSort(unsorted, 9);
 
     CHECK(arraysEqual(actual_result, expected_result, 9));
 }
 
 TEST_CASE("QuickSort multiple even elements") {
-    char *unsorted[] = { "trap", "apple", "chemistry", "pig", "zoo", "tree", "trait", "badger", "zinc", "crack" };
-    char *expected_result[] = { "apple", "badger", "chemistry", "crack", "pig", "trait", "trap", "tree", "zinc", "zoo" };
+    const char* unsorted[] = { "trap", "apple", "chemistry", "pig", "zoo", "tree", "trait", "badger", "zinc", "crack" };
+    const char* expected_result[] = { "apple", "badger", "chemistry", "crack", "pig", "trait", "trap", "tree", "zinc", "zoo" };
 
-    char **actual_result = quickSort(unsorted, 10);
+    const char** actual_result = quickSort(unsorted, 10);
 
     CHECK(arraysEqual(actual_result, expected_result, 10));
 }
 
 TEST_CASE("QuickSort already sorted elements") {
-    char *unsorted[] = { "apple", "badger", "chemistry", "crack", "pig", "trait", "trap", "tree", "zinc", "zoo" };
-    char *expected_result[] = { "apple", "badger", "chemistry", "crack", "pig", "trait", "trap", "tree", "zinc", "zoo" };
+    const char* unsorted[] = { "apple", "badger", "chemistry", "crack", "pig", "trait", "trap", "tree", "zinc", "zoo" };
+    const char* expected_result[] = { "apple", "badger", "chemistry", "crack", "pig", "trait", "trap", "tree", "zinc", "zoo" };
 
-    char **actual_result = quickSort(unsorted, 10);
+    const char** actual_result = quickSort(unsorted, 10);
 
     CHECK(arraysEqual(actual_result, expected_result, 10));
+}
+
+TEST_CASE("QuickSort reorders borrowed pointers in place") {
+    const char first[] = "apple";
+    const char last[] = "zoo";
+    const char* input[] = { last, first };
+
+    CHECK(quickSort(input, 2) == input);
+    CHECK(input[0] == &first[0]);
+    CHECK(input[1] == &last[0]);
 }
 
 int main(int argc, char* argv[]) {
