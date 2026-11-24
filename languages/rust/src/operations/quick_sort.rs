@@ -3,17 +3,21 @@
  */
 
 pub fn partition<T: Ord>(arr: &mut [T]) -> usize {
-    let len = arr.len();
-    let pivot = len - 1;
+    let (pivot, prefix) = arr.split_last_mut().expect("partition requires a pivot");
+    let last = prefix.len();
     let mut store_index = 0;
 
-    for i in 0..len - 1 {
-        if arr[i] < arr[pivot] {
-            arr.swap(i, store_index);
+    for i in 0..last {
+        if prefix[i] < *pivot {
+            if i != store_index {
+                prefix.swap(i, store_index);
+            }
             store_index += 1;
         }
     }
-    arr.swap(store_index, pivot);
+    if store_index != last {
+        arr.swap(store_index, last);
+    }
     store_index
 }
 
@@ -59,8 +63,28 @@ fn test_quick_sort_single_element() {
 #[test]
 fn test_quick_sort_multiple_odd_elements() {
     // Arrange
-    let mut unsorted: [&str; 9] = ["zinc", "trap", "tree", "trait", "badger", "apple", "chemistry", "pig", "zoo"];
-    let expected_result: [&str; 9] = ["apple", "badger", "chemistry", "pig", "trait", "trap", "tree", "zinc", "zoo"];
+    let mut unsorted: [&str; 9] = [
+        "zinc",
+        "trap",
+        "tree",
+        "trait",
+        "badger",
+        "apple",
+        "chemistry",
+        "pig",
+        "zoo",
+    ];
+    let expected_result: [&str; 9] = [
+        "apple",
+        "badger",
+        "chemistry",
+        "pig",
+        "trait",
+        "trap",
+        "tree",
+        "zinc",
+        "zoo",
+    ];
 
     // Act
     let actual_result = quick_sort(&mut unsorted);
@@ -72,8 +96,30 @@ fn test_quick_sort_multiple_odd_elements() {
 #[test]
 fn test_quick_sort_multiple_even_elements() {
     // Arrange
-    let mut unsorted: [&str; 10] = ["trap", "apple", "chemistry", "pig", "zoo", "tree", "trait", "badger", "zinc", "crack"];
-    let expected_result: [&str; 10] = ["apple", "badger", "chemistry", "crack", "pig", "trait", "trap", "tree", "zinc", "zoo"];
+    let mut unsorted: [&str; 10] = [
+        "trap",
+        "apple",
+        "chemistry",
+        "pig",
+        "zoo",
+        "tree",
+        "trait",
+        "badger",
+        "zinc",
+        "crack",
+    ];
+    let expected_result: [&str; 10] = [
+        "apple",
+        "badger",
+        "chemistry",
+        "crack",
+        "pig",
+        "trait",
+        "trap",
+        "tree",
+        "zinc",
+        "zoo",
+    ];
 
     // Act
     let actual_result = quick_sort(&mut unsorted);
@@ -85,8 +131,30 @@ fn test_quick_sort_multiple_even_elements() {
 #[test]
 fn test_quick_sort_already_sorted() {
     // Arrange
-    let mut unsorted: [&str; 10] = ["apple", "badger", "chemistry", "crack", "pig", "trait", "trap", "tree", "zinc", "zoo"];
-    let expected_result: [&str; 10] = ["apple", "badger", "chemistry", "crack", "pig", "trait", "trap", "tree", "zinc", "zoo"];
+    let mut unsorted: [&str; 10] = [
+        "apple",
+        "badger",
+        "chemistry",
+        "crack",
+        "pig",
+        "trait",
+        "trap",
+        "tree",
+        "zinc",
+        "zoo",
+    ];
+    let expected_result: [&str; 10] = [
+        "apple",
+        "badger",
+        "chemistry",
+        "crack",
+        "pig",
+        "trait",
+        "trap",
+        "tree",
+        "zinc",
+        "zoo",
+    ];
 
     // Act
     let actual_result = quick_sort(&mut unsorted);
